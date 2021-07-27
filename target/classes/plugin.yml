@@ -1,0 +1,26 @@
+main: club.spfmc.simplehomes.SimpleHomes
+name: SimpleHomes
+version: 1.0
+author: SirOswaldo
+commands:
+  SetHome:
+    description: Set a home
+  DeleteHome:
+    description: Delete a home
+  Home:
+    description: Teleport to home
+  Homes:
+    description: Open inventory
+permissions:
+  simple.set.home:
+    description: Set a home
+  simple.delete.home:
+    description: Delete a home
+  simple.home:
+    description: Teleport to home
+  simple.homes:
+    description: Open inventory
+  simple.bypass.home.countdown:
+    description: Bypass countdown teleport
+  simple.bypass.home.movement:
+    description: Bypass movement teleport
