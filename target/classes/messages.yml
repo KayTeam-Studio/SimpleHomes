@@ -1,0 +1,33 @@
+prefix: "&e&lSimple&6&lHomes &8»"
+setHome:
+  isConsole: "%prefix% &fThis command is disabled in the console."
+  noPermission: "%prefix% &fYou do not have permission."
+  emptyName: "%prefix% &fThe name are empty."
+  set: "%prefix% &fThe home &9%home%&f has been set."
+  overwritten: "%prefix% &fThe home &9%home%&f has been overwritten."
+deleteHome:
+  isConsole: "%prefix% &fThis command is disabled in the console."
+  noPermission: "%prefix% &fYou do not have permission."
+  emptyName: "%prefix% &fThe name are empty."
+  invalidHome: "%prefix% &fThe home &9%home%&f is invalid or no exist."
+  delete: "%prefix% &fThe home &9%home%&f has been deleted."
+home:
+  isConsole: "%prefix% &fThis command is disabled in the console."
+  noPermission: "%prefix% &fYou do not have permission."
+  emptyName: "%prefix% &fThe name are empty."
+  invalidHome: "%prefix% &fThe home &9%home%&f is invalid or no exist."
+  invalidWorld: "%prefix% &fThe world &9%world% &fis invalid or no exist. &cCONTACT A ADMIN"
+  cancelByMovement: "%prefix% &fTeleport cancel by move to other block."
+  alreadyInTeleporting: "%prefix% &fAlready teleporting countdown."
+  teleported: "%prefix% &fYou has teleported to home: &9%home% &f."
+homes:
+  isConsole: "%prefix% &fThis command is disabled in the console."
+  noPermission: "%prefix% &fYou do not have permission."
+admin:
+  noPermission: "%prefix% &fYou do not have permission."
+  emptyOption: "%prefix% &fThe option is empty. Type &9/SimpleHomes help&f."
+  invalidOption: "%prefix% &fThe option &9%option%&f ins invalid. Type &9/SimpleHomes help&f."
+  help:
+    - ""
+  reloaded: "%prefix% &fThe plugin &9%plugin%&f has been reloaded."
+  version: "%prefix% &fVersion: &9%version%"

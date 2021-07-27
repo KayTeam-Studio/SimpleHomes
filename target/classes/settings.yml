@@ -1,0 +1,49 @@
+teleport:
+  countdown: 10
+  messages:
+    10: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
+    5: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
+    4: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
+    3: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
+    2: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
+    1: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
+  sounds:
+    10: "NOTE_PLING"
+    9: "NOTE_PLING"
+    8: "NOTE_PLING"
+    7: "NOTE_PLING"
+    6: "NOTE_PLING"
+    5: "NOTE_PLING"
+    4: "NOTE_PLING"
+    3: "NOTE_PLING"
+    2: "NOTE_PLING"
+    1: "NOTE_PLING"
+    0: "ENTITY_ENDERMEN_TELEPORT"
+inventory:
+  homes:
+    title: "Homes Inventory"
+    items:
+      panel:
+        material: "STAINED_GLASS_PANE"
+        data: 4
+        flags:
+          - "HIDE_ENCHANTS"
+        enchantments:
+          DURABILITY: 1
+        display-name: "&7"
+      home:
+        material: "CHEST"
+        name: "&e%name%"
+        lore:
+          - "&7"
+          - "&bWorld: %world%"
+          - "&bCords: %x% %y% %z% %yaw% %pitch%"
+      prevPage:
+        material: "ARROW"
+        name: "&cPrev Page"
+      nextPage:
+        material: "ARROW"
+        name: "&cNext Page"
+      close:
+        material: "BARRIER"
+        name: "&cClose Menu"
