@@ -23,3 +23,11 @@ home:
 homes:
   isConsole: "%prefix% &fThis command is disabled in the console."
   noPermission: "%prefix% &fYou do not have permission."
+admin:
+  noPermission: "%prefix% &fYou do not have permission."
+  emptyOption: "%prefix% &fThe option is empty. Type &9/SimpleHomes help&f."
+  invalidOption: "%prefix% &fThe option &9%option%&f ins invalid. Type &9/SimpleHomes help&f."
+  help:
+    - ""
+  reloaded: "%prefix% &fThe plugin &9%plugin%&f has been reloaded."
+  version: "%prefix% &fVersion: &9%version%"

@@ -7,12 +7,11 @@ import club.spfmc.simplehomes.home.HomesManager;
 import club.spfmc.simplehomes.tasks.TeleportTask;
 import club.spfmc.simplehomes.util.command.SimpleCommand;
 import club.spfmc.simplehomes.util.yaml.Yaml;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeCommand extends SimpleCommand {
@@ -52,7 +51,17 @@ public class HomeCommand extends SimpleCommand {
 
     @Override
     public List<String> onPlayerTabComplete(Player player, Command command, String[] arguments) {
-        return super.onPlayerTabComplete(player, command, arguments);
+        List<String> names = new ArrayList<>();
+        if (arguments.length == 1) {
+            if (player.hasPermission("simple.home")) {
+                HomesManager homesManager = simpleHomes.getHomesManager();
+                Homes homes = homesManager.getHomes(player.getName());
+                for (Home home:homes.getHomes()) {
+                    names.add(home.getName());
+                }
+            }
+        }
+        return names;
     }
 
     @Override

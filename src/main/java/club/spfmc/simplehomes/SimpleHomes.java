@@ -1,9 +1,6 @@
 package club.spfmc.simplehomes;
 
-import club.spfmc.simplehomes.commands.DeleteHomeCommand;
-import club.spfmc.simplehomes.commands.HomeCommand;
-import club.spfmc.simplehomes.commands.HomesCommand;
-import club.spfmc.simplehomes.commands.SetHomeCommand;
+import club.spfmc.simplehomes.commands.*;
 import club.spfmc.simplehomes.home.HomesManager;
 import club.spfmc.simplehomes.inventories.HomesInventory;
 import club.spfmc.simplehomes.listeners.PlayerJoinListener;
@@ -63,6 +60,7 @@ public class SimpleHomes extends JavaPlugin {
         new DeleteHomeCommand(this);
         new HomeCommand(this);
         new HomesCommand(this);
+        new SimpleHomesCommand(this);
         // Listeners
         new PlayerJoinListener(this);
         new PlayerQuitListener(this);
