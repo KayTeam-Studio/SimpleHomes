@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2021 SirOswaldo
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package club.spfmc.simplehomes;
 
 import club.spfmc.simplehomes.commands.*;
@@ -11,12 +28,9 @@ import club.spfmc.simplehomes.util.bStats.Metrics;
 import club.spfmc.simplehomes.util.kayteam.KayTeam;
 import club.spfmc.simplehomes.util.updatechecker.UpdateChecker;
 import club.spfmc.simplehomes.util.yaml.Yaml;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.concurrent.Callable;
 
 public class SimpleHomes extends JavaPlugin {
 
@@ -54,15 +68,12 @@ public class SimpleHomes extends JavaPlugin {
         // bStats
         int pluginId = 12209;
         Metrics metrics = new Metrics(this, pluginId);
-        metrics.addCustomChart(new Metrics.SingleLineChart("homes", new Callable<Integer>() {
-            @Override
-            public Integer call() throws Exception {
-                int homes = 0;
-                for (FileConfiguration fileConfiguration:Yaml.getFolderFiles(getDataFolder() + "/players")) {
-                    homes = homes + fileConfiguration.getKeys(false).size();
-                }
-                return homes;
+        metrics.addCustomChart(new Metrics.SingleLineChart("homes", () -> {
+            int homes = 0;
+            for (FileConfiguration fileConfiguration:Yaml.getFolderFiles(getDataFolder() + "/players")) {
+                homes = homes + fileConfiguration.getKeys(false).size();
             }
+            return homes;
         }));
         // Yaml Files
         settings.registerFileConfiguration();
