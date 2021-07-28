@@ -5,7 +5,6 @@ import club.spfmc.simplehomes.home.Homes;
 import club.spfmc.simplehomes.home.HomesManager;
 import club.spfmc.simplehomes.util.command.SimpleCommand;
 import club.spfmc.simplehomes.util.yaml.Yaml;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
