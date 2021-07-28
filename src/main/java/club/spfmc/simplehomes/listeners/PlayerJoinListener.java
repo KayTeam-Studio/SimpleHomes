@@ -2,6 +2,7 @@ package club.spfmc.simplehomes.listeners;
 
 import club.spfmc.simplehomes.SimpleHomes;
 import club.spfmc.simplehomes.home.HomesManager;
+import club.spfmc.simplehomes.util.updatechecker.UpdateChecker;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +23,11 @@ public class PlayerJoinListener implements Listener {
         String name = player.getName();
         HomesManager homesManager = simpleHomes.getHomesManager();
         homesManager.loadHomes(name);
+        if (player.isOp()) {
+            if (simpleHomes.getUpdateChecker().getUpdateCheckResult().equals(UpdateChecker.UpdateCheckResult.OUT_DATED)) {
+                simpleHomes.getUpdateChecker().sendOutDatedMessage(player);
+            }
+        }
     }
 
 }

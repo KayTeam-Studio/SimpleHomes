@@ -61,12 +61,22 @@ public class DeleteHomeConfirmInventory extends SimpleConfirmInventory {
     @Override
     public void onAcceptClick(Player player, Object object) {
         if (object != null) {
-            HomesManager homesManager = simpleHomes.getHomesManager();
-            Homes homes = homesManager.getHomes(player.getName());
             Home home = (Home) object;
-            Yaml messages = simpleHomes.getMessages();
-            messages.sendMessage(player,  "deleteHome.delete", new String[][]{{"%home%", home.getName()}});
+            String name = home.getName();
+            String owner = home.getOwner();
+            HomesManager homesManager = simpleHomes.getHomesManager();
+            Homes homes = homesManager.getHomes(home.getOwner());
             homes.removeHome(home.getName());
+            Yaml messages = simpleHomes.getMessages();
+            if (player.getName().equals(home.getOwner())) {
+                messages.sendMessage(player,  "deleteHome.delete", new String[][]{{"%home%", name}});
+            } else {
+                messages.sendMessage(player, "deleteHome.deleteOther", new String[][] {
+                        {"%home%", name},
+                        {"%player%", owner}
+                });
+            }
+            homesManager.saveHomes(owner);
             player.closeInventory();
             simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()));
         }
@@ -75,8 +85,9 @@ public class DeleteHomeConfirmInventory extends SimpleConfirmInventory {
     @Override
     public void onCancelClick(Player player, Object object) {
         if (object != null) {
+            Home home = (Home) object;
             HomesManager homesManager = simpleHomes.getHomesManager();
-            Homes homes = homesManager.getHomes(player.getName());
+            Homes homes = homesManager.getHomes(home.getOwner());
             player.closeInventory();
             simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()));
         }

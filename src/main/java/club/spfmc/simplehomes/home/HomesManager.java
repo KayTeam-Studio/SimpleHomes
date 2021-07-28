@@ -69,6 +69,26 @@ public class HomesManager {
         playerHomes.remove(owner);
     }
 
+    public void saveHomes(String owner) {
+        Yaml yaml = new Yaml(simpleHomes, "players", owner);
+        yaml.registerFileConfiguration();
+        Homes homes = playerHomes.get(owner);
+        for (String home:yaml.getFileConfiguration().getKeys(false)) {
+            if (!homes.containHome(home)) {
+                yaml.set(home, null);
+            }
+        }
+        for (Home home:homes.getHomes()) {
+            yaml.set(home.getName() + ".world", home.getWorld());
+            yaml.set(home.getName() + ".x", home.getX());
+            yaml.set(home.getName() + ".y", home.getY());
+            yaml.set(home.getName() + ".z", home.getZ());
+            yaml.set(home.getName() + ".yaw", home.getYaw());
+            yaml.set(home.getName() + ".pitch", home.getPitch());
+        }
+        yaml.saveFileConfiguration();
+    }
+
     public Homes getHomes(String name) {
         return playerHomes.get(name);
     }

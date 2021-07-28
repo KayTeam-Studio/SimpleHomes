@@ -1,11 +1,18 @@
 package club.spfmc.simplehomes.commands;
 
 import club.spfmc.simplehomes.SimpleHomes;
+import club.spfmc.simplehomes.home.Home;
+import club.spfmc.simplehomes.home.Homes;
+import club.spfmc.simplehomes.home.HomesManager;
 import club.spfmc.simplehomes.util.command.SimpleCommand;
+import club.spfmc.simplehomes.util.updatechecker.UpdateChecker;
 import club.spfmc.simplehomes.util.yaml.Yaml;
 import org.bukkit.command.Command;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SimpleHomesCommand extends SimpleCommand {
 
@@ -44,6 +51,9 @@ public class SimpleHomesCommand extends SimpleCommand {
                         messages.sendMessage(player, "admin.version", new String[][] {
                                 {"%version%", simpleHomes.getDescription().getVersion()}
                         });
+                        if (simpleHomes.getUpdateChecker().getUpdateCheckResult().equals(UpdateChecker.UpdateCheckResult.OUT_DATED)) {
+                            simpleHomes.getUpdateChecker().sendOutDatedMessage(player);
+                        }
                         break;
                     case "help":
                         messages.sendMessage(player, "admin.help");
@@ -59,6 +69,19 @@ public class SimpleHomesCommand extends SimpleCommand {
         } else {
             messages.sendMessage(player, "admin.noPermission");
         }
+    }
+
+    @Override
+    public List<String> onPlayerTabComplete(Player player, Command command, String[] arguments) {
+        List<String> options = new ArrayList<>();
+        if (arguments.length == 1) {
+            if (player.hasPermission("simple.home")) {
+                options.add("reload");
+                options.add("version");
+                options.add("help");
+            }
+        }
+        return options;
     }
 
     @Override
@@ -88,6 +111,9 @@ public class SimpleHomesCommand extends SimpleCommand {
                     messages.sendMessage(console, "admin.version", new String[][] {
                             {"%version%", simpleHomes.getDescription().getVersion()}
                     });
+                    if (simpleHomes.getUpdateChecker().getUpdateCheckResult().equals(UpdateChecker.UpdateCheckResult.OUT_DATED)) {
+                        simpleHomes.getUpdateChecker().sendOutDatedMessage(console);
+                    }
                     break;
                 case "help":
                     messages.sendMessage(console, "admin.help");
@@ -102,4 +128,14 @@ public class SimpleHomesCommand extends SimpleCommand {
         }
     }
 
+    @Override
+    public List<String> onConsoleTabComplete(ConsoleCommandSender console, Command command, String[] arguments) {
+        List<String> options = new ArrayList<>();
+        if (arguments.length == 1) {
+            options.add("reload");
+            options.add("version");
+            options.add("help");
+        }
+        return options;
+    }
 }

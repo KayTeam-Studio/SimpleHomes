@@ -9,7 +9,9 @@ import club.spfmc.simplehomes.listeners.PlayerMoveListener;
 import club.spfmc.simplehomes.listeners.PlayerQuitListener;
 import club.spfmc.simplehomes.util.bStats.Metrics;
 import club.spfmc.simplehomes.util.kayteam.KayTeam;
+import club.spfmc.simplehomes.util.updatechecker.UpdateChecker;
 import club.spfmc.simplehomes.util.yaml.Yaml;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,6 +43,12 @@ public class SimpleHomes extends JavaPlugin {
         return deleteHomeConfirmInventory;
     }
 
+    // Update Checker
+    private UpdateChecker updateChecker;
+    public UpdateChecker getUpdateChecker() {
+        return updateChecker;
+    }
+
     @Override
     public void onEnable() {
         // bStats
@@ -56,8 +64,6 @@ public class SimpleHomes extends JavaPlugin {
                 return homes;
             }
         }));
-        // Spigot Updater
-
         // Yaml Files
         settings.registerFileConfiguration();
         messages.registerFileConfiguration();
@@ -83,6 +89,11 @@ public class SimpleHomes extends JavaPlugin {
         homesManager.loadMaxHomes();
         // Enabled
         KayTeam.sendBrandMessage(this, "&aEnabled");
+        // UpdateChecker
+        updateChecker = new UpdateChecker(this, 94734);
+        if (updateChecker.getUpdateCheckResult().equals(UpdateChecker.UpdateCheckResult.OUT_DATED)) {
+            updateChecker.sendOutDatedMessage(getServer().getConsoleSender());
+        }
     }
 
     @Override

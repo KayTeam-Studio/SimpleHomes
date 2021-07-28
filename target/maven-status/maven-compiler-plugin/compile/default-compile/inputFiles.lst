@@ -1,5 +1,6 @@
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\commands\HomeCommand.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\listeners\PlayerJoinListener.java
+C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\updatechecker\UpdateChecker.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\home\Homes.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\task\Task.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\tasks\TeleportTask.java
@@ -10,6 +11,7 @@ C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\comman
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\command\SimpleCommandManager.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\inventory\SimpleConfirmInventory.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\kayteam\KayTeam.java
+C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\updatechecker\CheckerTester.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\inventories\HomesInventory.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\listeners\PlayerMoveListener.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\chatimput\ChatInput.java

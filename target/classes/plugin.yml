@@ -1,6 +1,6 @@
 main: club.spfmc.simplehomes.SimpleHomes
 name: SimpleHomes
-version: 1.0
+version: 1.2
 author: SirOswaldo
 website: "https://www.kayteam.org"
 softdepend:
@@ -26,7 +26,9 @@ permissions:
   simple.home:
     description: Teleport to home
   simple.homes:
-    description: Open inventory
+    description: Open homes inventory
+  simple.homes.other:
+    description: Open other homes inventory
   simple.bypass.home.countdown:
     description: Bypass countdown teleport
   simple.bypass.home.movement:
