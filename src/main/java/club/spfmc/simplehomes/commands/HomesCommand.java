@@ -27,8 +27,7 @@ public class HomesCommand extends SimpleCommand {
         if (player.hasPermission("simple.homes")) {
             HomesManager homesManager = simpleHomes.getHomesManager();
             Homes homes = homesManager.getHomes(player.getName());
-            List<Object> objectList = new ArrayList<>(homes.getHomes());
-            simpleHomes.getHomesInventory().openInventory(player, objectList);
+            simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()));
         } else {
             messages.sendMessage(player, "homes.noPermission");
         }

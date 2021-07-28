@@ -3,6 +3,7 @@ setHome:
   isConsole: "%prefix% &fThis command is disabled in the console."
   noPermission: "%prefix% &fYou do not have permission."
   emptyName: "%prefix% &fThe name are empty."
+  maxHomesReached: "%prefix% &fYou has reached the max homes."
   set: "%prefix% &fThe home &9%home%&f has been set."
   overwritten: "%prefix% &fThe home &9%home%&f has been overwritten."
 deleteHome:

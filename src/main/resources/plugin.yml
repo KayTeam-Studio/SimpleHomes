@@ -2,6 +2,9 @@ main: club.spfmc.simplehomes.SimpleHomes
 name: SimpleHomes
 version: 1.0
 author: SirOswaldo
+website: "https://www.kayteam.org"
+softdepend:
+  - PlaceholderAPI
 commands:
   SetHome:
     description: Set a home
@@ -11,7 +14,11 @@ commands:
     description: Teleport to home
   Homes:
     description: Open inventory
+  SimpleHomes:
+    description: Manage this plugin
 permissions:
+  simple.admin.homes:
+    description: Manage this plugin
   simple.set.home:
     description: Set a home
   simple.delete.home:

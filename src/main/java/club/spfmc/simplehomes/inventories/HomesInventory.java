@@ -35,11 +35,11 @@ public class HomesInventory extends SimplePagesInventory {
             item = Yaml.replace(item, new String[][] {
                     {"%name%", home.getName()},
                     {"%world%", home.getWorld()},
-                    {"%x%", home.getX() + ""},
-                    {"%y%", home.getY() + ""},
-                    {"%z%", home.getZ() + ""},
-                    {"%yaw%", home.getYaw() + ""},
-                    {"%pitch%", home.getPitch() + ""}
+                    {"%x%", Math.round(home.getX()) + ""},
+                    {"%y%", Math.round(home.getY()) + ""},
+                    {"%z%", Math.round(home.getZ()) + ""},
+                    {"%yaw%", Math.round(home.getYaw()) + ""},
+                    {"%pitch%", Math.round(home.getPitch()) + ""}
             });
             return item;
         }
@@ -62,8 +62,9 @@ public class HomesInventory extends SimplePagesInventory {
         return simpleHomes.getSettings().getItemStack("inventory.homes.items.close");
     }
 
+
     @Override
-    public void onClick(Player player, Object object) {
+    public void onLeftClick(Player player, Object object) {
         if (object != null) {
             player.closeInventory();
             if (!TeleportTask.getTeleporting().contains(player.getName())) {
@@ -74,6 +75,14 @@ public class HomesInventory extends SimplePagesInventory {
                 Yaml messages = simpleHomes.getMessages();
                 messages.sendMessage(player, "home.alreadyInTeleporting");
             }
+        }
+    }
+
+    @Override
+    public void onRightClick(Player player, Object object) {
+        if (object != null) {
+            player.closeInventory();
+            simpleHomes.getDeleteHomeConfirmInventory().openInventory(player, object);
         }
     }
 

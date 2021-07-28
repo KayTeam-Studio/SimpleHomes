@@ -1,10 +1,12 @@
 package club.spfmc.simplehomes.util.inventory;
 
+import javafx.beans.binding.ObjectExpression;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
@@ -60,10 +62,26 @@ public abstract class SimplePagesInventory implements Listener {
                 int realIndex = (page * 7 - 7) + (slot - 9);
                 int listIndex = realIndex - 1;
                 List<Object> objects = SimplePagesInventory.objects.get(player.getName());
+                Object object = null;
                 if (objects.size() > listIndex) {
-                    onClick(player, objects.get(listIndex));
-                } else {
-                    onClick(player, null);
+                    object = objects.get(listIndex);
+                }
+                switch (event.getClick()) {
+                    case LEFT:
+                        onLeftClick(player, object);
+                        break;
+                    case RIGHT:
+                        onRightClick(player, object);
+                        break;
+                    case MIDDLE:
+                        onMiddleClick(player, object);
+                        break;
+                    case SHIFT_LEFT:
+                        onShiftLeftClick(player, object);
+                        break;
+                    case SHIFT_RIGHT:
+                        onShiftRightClick(player, object);
+                        break;
                 }
             } else if (slot == 9) {
                 if (page > 1) {
@@ -103,16 +121,19 @@ public abstract class SimplePagesInventory implements Listener {
         }
     }
 
-    public abstract void onClick(Player player, Object object);
+    public  void onLeftClick(Player player, Object object) {};
+    public  void onRightClick(Player player, Object object) {};
+    public  void onMiddleClick(Player player, Object object) {};
+    public  void onShiftRightClick(Player player, Object object) {};
+    public  void onShiftLeftClick(Player player, Object object) {};
+
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
         if (event.getView().getTitle().equals(ChatColor.translateAlternateColorCodes('&', getTitle()))) {
-            if (SimplePagesInventory.objects.containsKey(player.getName())) {
-                SimplePagesInventory.objects.remove(player.getName());
-                SimplePagesInventory.page.remove(player.getName());
-            }
+            SimplePagesInventory.objects.remove(player.getName());
+            SimplePagesInventory.page.remove(player.getName());
         }
     }
 

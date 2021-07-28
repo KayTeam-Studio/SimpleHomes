@@ -18,26 +18,60 @@ teleport:
     3: "NOTE_PLING"
     2: "NOTE_PLING"
     1: "NOTE_PLING"
-    0: "ENTITY_ENDERMEN_TELEPORT"
+    0: "ENDERMAN_TELEPORT"
+homes:
+  default: 2
+  vip: 5 # simple.max.homes.vip
+  staff: 10 # simple.max.homes.staff
 inventory:
+  deleteConfirm:
+    title: "Do you want to erase your home?"
+    items:
+      panel:
+        material: "STAINED_GLASS_PANE"
+        data: 1
+        name: "&7"
+      information:
+        material: "BED"
+        name: "&6%name%"
+        lore:
+          - "&7"
+          - "&6WORLD &e%world%"
+          - "&6X &e%x%"
+          - "&6Y &e%y%"
+          - "&6Z &e%z%"
+          - "&6YAW  &e%yaw%"
+          - "&6PITCH &e%pitch%"
+          - "&7"
+      accept:
+        material: "WOOL"
+        data: 5
+        name: "&aAccept"
+      cancel:
+        material: "WOOL"
+        data: 14
+        name: "&cCancel"
   homes:
     title: "Homes Inventory"
     items:
       panel:
         material: "STAINED_GLASS_PANE"
-        data: 4
-        flags:
-          - "HIDE_ENCHANTS"
-        enchantments:
-          DURABILITY: 1
-        display-name: "&7"
+        data: 1
+        name: "&7"
       home:
         material: "CHEST"
         name: "&e%name%"
         lore:
           - "&7"
-          - "&bWorld: %world%"
-          - "&bCords: %x% %y% %z% %yaw% %pitch%"
+          - "&6WORLD &e%world%"
+          - "&6X &e%x%"
+          - "&6Y &e%y%"
+          - "&6Z &e%z%"
+          - "&6YAW  &e%yaw%"
+          - "&6PITCH &e%pitch%"
+          - "&7"
+          - "&6Left Click &eTeleport to home"
+          - "&6Right Click &eDelete the home"
       prevPage:
         material: "ARROW"
         name: "&cPrev Page"

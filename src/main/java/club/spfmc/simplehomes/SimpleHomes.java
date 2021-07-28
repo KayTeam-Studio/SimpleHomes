@@ -2,11 +2,13 @@ package club.spfmc.simplehomes;
 
 import club.spfmc.simplehomes.commands.*;
 import club.spfmc.simplehomes.home.HomesManager;
+import club.spfmc.simplehomes.inventories.DeleteHomeConfirmInventory;
 import club.spfmc.simplehomes.inventories.HomesInventory;
 import club.spfmc.simplehomes.listeners.PlayerJoinListener;
 import club.spfmc.simplehomes.listeners.PlayerMoveListener;
 import club.spfmc.simplehomes.listeners.PlayerQuitListener;
 import club.spfmc.simplehomes.util.bStats.Metrics;
+import club.spfmc.simplehomes.util.kayteam.KayTeam;
 import club.spfmc.simplehomes.util.yaml.Yaml;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -33,6 +35,10 @@ public class SimpleHomes extends JavaPlugin {
     private HomesInventory homesInventory;
     public HomesInventory getHomesInventory() {
         return homesInventory;
+    }
+    private DeleteHomeConfirmInventory deleteHomeConfirmInventory;
+    public DeleteHomeConfirmInventory getDeleteHomeConfirmInventory() {
+        return deleteHomeConfirmInventory;
     }
 
     @Override
@@ -67,10 +73,16 @@ public class SimpleHomes extends JavaPlugin {
         new PlayerMoveListener(this);
         homesInventory = new HomesInventory(this);
         getServer().getPluginManager().registerEvents(homesInventory, this);
+        deleteHomeConfirmInventory = new DeleteHomeConfirmInventory(this);
+        getServer().getPluginManager().registerEvents(deleteHomeConfirmInventory, this);
         // Load Player Homes
         for (Player player:getServer().getOnlinePlayers()) {
             homesManager.loadHomes(player.getName());
         }
+        // MaxHomes
+        homesManager.loadMaxHomes();
+        // Enabled
+        KayTeam.sendBrandMessage(this, "&aEnabled");
     }
 
     @Override
@@ -80,6 +92,7 @@ public class SimpleHomes extends JavaPlugin {
             player.closeInventory();
             homesManager.unloadHomes(player.getName());
         }
+        KayTeam.sendBrandMessage(this, "&cDisabled");
     }
 
 }

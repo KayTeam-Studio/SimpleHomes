@@ -23,6 +23,19 @@ public class SimpleHomesCommand extends SimpleCommand {
             if (arguments.length > 0) {
                 switch (arguments[0].toLowerCase()) {
                     case "reload":
+                        // Files
+                        simpleHomes.getSettings().reloadFileConfiguration();
+                        messages.reloadFileConfiguration();
+                        // MaxHomes
+                        simpleHomes.getHomesManager().loadMaxHomes();
+                        // Players
+                        for (Player p:simpleHomes.getServer().getOnlinePlayers()) {
+                            p.closeInventory();
+                            simpleHomes.getHomesManager().unloadHomes(p.getName());
+                        }
+                        for (Player p:simpleHomes.getServer().getOnlinePlayers()) {
+                            simpleHomes.getHomesManager().loadHomes(p.getName());
+                        }
                         messages.sendMessage(player, "admin.reloaded", new String[][] {
                                 {"%plugin%", simpleHomes.getDescription().getName()}
                         });
@@ -54,6 +67,19 @@ public class SimpleHomesCommand extends SimpleCommand {
         if (arguments.length > 0) {
             switch (arguments[0].toLowerCase()) {
                 case "reload":
+                    // Files
+                    simpleHomes.getSettings().reloadFileConfiguration();
+                    messages.reloadFileConfiguration();
+                    // MaxHomes
+                    simpleHomes.getHomesManager().loadMaxHomes();
+                    // Players
+                    for (Player player:simpleHomes.getServer().getOnlinePlayers()) {
+                        player.closeInventory();
+                        simpleHomes.getHomesManager().unloadHomes(player.getName());
+                    }
+                    for (Player player:simpleHomes.getServer().getOnlinePlayers()) {
+                        simpleHomes.getHomesManager().loadHomes(player.getName());
+                    }
                     messages.sendMessage(console, "admin.reloaded", new String[][] {
                             {"%plugin%", simpleHomes.getDescription().getName()}
                     });

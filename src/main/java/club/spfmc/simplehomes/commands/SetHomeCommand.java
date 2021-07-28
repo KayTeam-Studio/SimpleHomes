@@ -25,18 +25,33 @@ public class SetHomeCommand extends SimpleCommand {
         Yaml messages = simpleHomes.getMessages();
         if (player.hasPermission("simple.set.home")) {
             if (arguments.length > 0) {
-                Location location = player.getLocation();
-                Home home = new Home(player.getName(), arguments[0]);
-                home.setWorld(location.getWorld().getName());
-                home.setX(location.getX());
-                home.setY(location.getY());
-                home.setZ(location.getZ());
-                home.setYaw(location.getYaw());
-                home.setPitch(location.getPitch());
                 HomesManager homesManager = simpleHomes.getHomesManager();
+                int maxHomes = 0;
+                for (Integer key:homesManager.getMaxHomes().keySet()) {
+                    String name = homesManager.getMaxHomes().get(key);
+                    if (name.equals("default") || player.hasPermission("simple.max.homes." + name) ) {
+                        maxHomes = key;
+                    }
+                }
                 Homes homes = homesManager.getHomes(player.getName());
-                homes.addHome(home);
-                messages.sendMessage(player, "setHome.set", new String[][]{{"%home%", arguments[0]}});
+                if (homes.getHomes().size() < maxHomes || homes.containHome(arguments[0])) {
+                    Location location = player.getLocation();
+                    Home home = new Home(player.getName(), arguments[0]);
+                    home.setWorld(location.getWorld().getName());
+                    home.setX(location.getX());
+                    home.setY(location.getY());
+                    home.setZ(location.getZ());
+                    home.setYaw(location.getYaw());
+                    home.setPitch(location.getPitch());
+                    if (homes.containHome(home.getName())) {
+                        messages.sendMessage(player, "setHome.overwritten", new String[][]{{"%home%", arguments[0]}});
+                    } else {
+                        messages.sendMessage(player, "setHome.set", new String[][]{{"%home%", arguments[0]}});
+                    }
+                    homes.addHome(home);
+                } else {
+                    messages.sendMessage(player, "setHome.maxHomesReached");
+                }
             } else {
                 messages.sendMessage(player, "setHome.emptyName");
             }
