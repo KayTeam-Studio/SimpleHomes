@@ -95,7 +95,14 @@ public class DeleteHomeConfirmInventory extends SimpleConfirmInventory {
             }
             homesManager.saveHomes(owner);
             player.closeInventory();
-            simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()));
+            if (homes.getHomes().size() > 0) {
+                int rows = simpleHomes.getSettings().getInt("inventory.homes.rows", 1);
+                simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()), rows);
+            } else {
+                messages.sendMessage(player, "homes.emptyHomesOther", new String[][] {
+                        {"%player%", owner}
+                });
+            }
         }
     }
 
@@ -106,7 +113,8 @@ public class DeleteHomeConfirmInventory extends SimpleConfirmInventory {
             HomesManager homesManager = simpleHomes.getHomesManager();
             Homes homes = homesManager.getHomes(home.getOwner());
             player.closeInventory();
-            simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()));
+            int rows = simpleHomes.getSettings().getInt("inventory.homes.rows", 1);
+            simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()), rows);
         }
     }
 

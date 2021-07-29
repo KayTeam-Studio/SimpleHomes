@@ -47,7 +47,7 @@ public class UpdateChecker {
             return;
         }
 
-        currentVersionString = "1.2";
+        currentVersionString = javaPlugin.getDescription().getVersion();
         latestVersionString = getLatestVersion();
 
         if (latestVersionString == null) {
@@ -104,7 +104,7 @@ public class UpdateChecker {
         message.add("&f>> &6Current Version &f" + javaPlugin.getDescription().getVersion());
         message.add("&f>>");
         message.add("&f>> &6Latest Version &f" + latestVersionString);
-        message.add("&f>> &6Download latest version here &f" + resourceURL);
+        message.add("&f>> &6Download latest version here &f" + getResourceURL());
         message.add("&f>>");
         message.add("");
         for(String line : message){

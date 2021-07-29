@@ -26,6 +26,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
+
 public class HomesInventory extends SimplePagesInventory {
 
     private final SimpleHomes simpleHomes;
@@ -42,6 +44,15 @@ public class HomesInventory extends SimplePagesInventory {
     @Override
     public ItemStack getPanel() {
         return simpleHomes.getSettings().getItemStack("inventory.homes.items.panel");
+    }
+
+    @Override
+    public ItemStack getInformation(List<Object> objects) {
+        Home home = (Home) objects.get(0);
+        return Yaml.replace(simpleHomes.getSettings().getItemStack("inventory.homes.items.information"), new String[][] {
+                {"%owner%", home.getOwner()},
+                {"%amount%", objects.size() + ""}
+        });
     }
 
     @Override

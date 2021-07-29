@@ -6,7 +6,7 @@
 
     <groupId>club.spfmc.simplehomes</groupId>
     <artifactId>SimpleHomes</artifactId>
-    <version>1.2</version>
+    <version>1.4</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

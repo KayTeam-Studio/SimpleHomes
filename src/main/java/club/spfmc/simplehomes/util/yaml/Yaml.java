@@ -395,6 +395,42 @@ public class Yaml {
         item.setItemMeta(meta);
         return item;
     }
+    public static ItemStack replace(ItemStack itemStack, Player player, String[][] replacements) {
+        ItemStack item = new ItemStack(itemStack);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            if (meta.hasDisplayName()) {
+                String displayName = meta.getDisplayName();
+                for (String[] values:replacements){
+                    displayName = displayName.replaceAll(values[0], values[1]);
+                }
+                if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+                    displayName = PlaceholderAPI.setPlaceholders(player, displayName);
+                }
+                displayName = ChatColor.translateAlternateColorCodes('&', displayName);
+                meta.setDisplayName(displayName);
+            }
+            if (meta.hasLore()) {
+                List<String> lore = meta.getLore();
+                List<String> newLore = new ArrayList<>();
+                if (lore != null) {
+                    for (String line:lore) {
+                        for (String[] values:replacements){
+                            line = line.replaceAll(values[0], values[1]);
+                        }
+                        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+                            line = PlaceholderAPI.setPlaceholders(player, line);
+                        }
+                        line = ChatColor.translateAlternateColorCodes('&', line);
+                        newLore.add(line);
+                    }
+                    meta.setLore(newLore);
+                }
+            }
+        }
+        item.setItemMeta(meta);
+        return item;
+    }
 
     public Location getLocation(String path) {
         String name = getString(path + ".world");

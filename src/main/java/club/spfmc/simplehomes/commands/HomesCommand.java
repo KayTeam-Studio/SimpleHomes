@@ -48,11 +48,23 @@ public class HomesCommand extends SimpleCommand {
                 if (target != null) {
                     if (player.equals(target)) {
                         Homes homes = homesManager.getHomes(player.getName());
-                        simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()));
+                        if (homes.getHomes().size() > 0) {
+                            int rows = simpleHomes.getSettings().getInt("inventory.homes.rows", 1);
+                            simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()), rows);
+                        } else {
+                            messages.sendMessage(player, "homes.emptyHomes");
+                        }
                     } else {
                         if (player.hasPermission("simple.homes.other")) {
                             Homes homes = homesManager.getHomes(target.getName());
-                            simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()));
+                            if (homes.getHomes().size() > 0) {
+                                int rows = simpleHomes.getSettings().getInt("inventory.homes.rows", 1);
+                                simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()), rows);
+                            } else {
+                                messages.sendMessage(player, "homes.emptyHomesOther", new String[][] {
+                                        {"%player%", arguments[0]}
+                                });
+                            }
                         } else {
                             messages.sendMessage(player, "homes.noPermissionOther");
                         }
@@ -63,7 +75,14 @@ public class HomesCommand extends SimpleCommand {
                         if (yaml.existFileConfiguration()) {
                             homesManager.loadHomes(arguments[0]);
                             Homes homes = homesManager.getHomes(arguments[0]);
-                            simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()));
+                            if (homes.getHomes().size() > 0) {
+                                int rows = simpleHomes.getSettings().getInt("inventory.homes.rows", 1);
+                                simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()), rows);
+                            } else {
+                                messages.sendMessage(player, "homes.emptyHomesOther", new String[][] {
+                                        {"%player%", arguments[0]}
+                                });
+                            }
                         } else {
                             messages.sendMessage(player, "homes.invalidName", new String[][] {
                                     {"%player%", arguments[0]}
@@ -75,7 +94,12 @@ public class HomesCommand extends SimpleCommand {
                 }
             } else {
                 Homes homes = homesManager.getHomes(player.getName());
-                simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()));
+                if (homes.getHomes().size() > 0) {
+                    int rows = simpleHomes.getSettings().getInt("inventory.homes.rows", 1);
+                    simpleHomes.getHomesInventory().openInventory(player, new ArrayList<>(homes.getHomes()), rows);
+                } else {
+                    messages.sendMessage(player, "homes.emptyHomes");
+                }
             }
         } else {
             messages.sendMessage(player, "homes.noPermission");

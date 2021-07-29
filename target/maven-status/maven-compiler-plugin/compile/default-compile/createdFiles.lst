@@ -9,7 +9,6 @@ club\spfmc\simplehomes\util\bStats\Metrics$AdvancedBarChart.class
 club\spfmc\simplehomes\home\Home.class
 club\spfmc\simplehomes\inventories\DeleteHomeConfirmInventory.class
 club\spfmc\simplehomes\util\bStats\Metrics$MetricsBase.class
-club\spfmc\simplehomes\util\updatechecker\CheckerTester.class
 club\spfmc\simplehomes\util\updatechecker\UpdateChecker.class
 club\spfmc\simplehomes\commands\SetHomeCommand.class
 club\spfmc\simplehomes\util\chatimput\ChatInputManager.class
@@ -20,15 +19,15 @@ club\spfmc\simplehomes\util\inventory\SimpleConfirmInventory.class
 club\spfmc\simplehomes\util\inventory\SimplePagesInventory.class
 club\spfmc\simplehomes\util\bStats\Metrics$JsonObjectBuilder.class
 club\spfmc\simplehomes\util\bStats\Metrics$SimpleBarChart.class
+club\spfmc\simplehomes\util\inventory\SimplePagesInventory2.class
 club\spfmc\simplehomes\listeners\PlayerJoinListener.class
 club\spfmc\simplehomes\util\bStats\Metrics$MultiLineChart.class
-club\spfmc\simplehomes\SimpleHomes$1.class
 club\spfmc\simplehomes\inventories\HomesInventory.class
-club\spfmc\simplehomes\util\command\SimpleCommandManager.class
 club\spfmc\simplehomes\home\Homes.class
 club\spfmc\simplehomes\util\bStats\Metrics$SimplePie.class
 club\spfmc\simplehomes\commands\DeleteHomeCommand.class
 club\spfmc\simplehomes\util\inventory\SimpleInventory.class
+club\spfmc\simplehomes\util\inventory\SimplePagesInventory2$1.class
 club\spfmc\simplehomes\SimpleHomes.class
 club\spfmc\simplehomes\util\task\OpenInventoryTask.class
 club\spfmc\simplehomes\util\updatechecker\UpdateChecker$UpdateCheckResult.class

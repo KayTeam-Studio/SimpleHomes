@@ -52,12 +52,20 @@ inventory:
         data: 14
         name: "&cCancel"
   homes:
+    rows: 3
     title: "Homes Inventory"
     items:
       panel:
         material: "STAINED_GLASS_PANE"
         data: 1
         name: "&7"
+      information:
+        material: "PAPER"
+        name: "&6Information"
+        lore:
+          - "&7"
+          - "&6Owner: %owner%"
+          - "&6Amount: %amount%"
       home:
         material: "CHEST"
         name: "&e%name%"

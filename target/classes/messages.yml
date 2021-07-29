@@ -27,6 +27,8 @@ homes:
   noPermission: "%prefix% &fYou do not have permission."
   noPermissionOther: "%prefix% &fYou do not have permission."
   invalidName: "%prefix% &fThe player &9%player%&f no exist."
+  emptyHomes: "%prefix% &fYou do not have homes."
+  emptyHomesOther: "%prefix% &fThe player &9%player%&f has not homes."
 admin:
   noPermission: "%prefix% &fYou do not have permission."
   emptyOption: "%prefix% &fThe option is empty. Type &9/SimpleHomes help&f."
