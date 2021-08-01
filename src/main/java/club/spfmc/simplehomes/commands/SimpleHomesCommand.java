@@ -55,7 +55,7 @@ public class SimpleHomesCommand extends SimpleCommand {
                             simpleHomes.getHomesManager().unloadHomes(p.getName());
                         }
                         for (Player p:simpleHomes.getServer().getOnlinePlayers()) {
-                            simpleHomes.getHomesManager().loadHomes(p.getName());
+                            simpleHomes.getHomesManager().loadHomes(player);
                         }
                         messages.sendMessage(player, "admin.reloaded", new String[][] {
                                 {"%plugin%", simpleHomes.getDescription().getName()}
@@ -115,7 +115,7 @@ public class SimpleHomesCommand extends SimpleCommand {
                         simpleHomes.getHomesManager().unloadHomes(player.getName());
                     }
                     for (Player player:simpleHomes.getServer().getOnlinePlayers()) {
-                        simpleHomes.getHomesManager().loadHomes(player.getName());
+                        simpleHomes.getHomesManager().loadHomes(player);
                     }
                     messages.sendMessage(console, "admin.reloaded", new String[][] {
                             {"%plugin%", simpleHomes.getDescription().getName()}

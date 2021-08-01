@@ -40,7 +40,7 @@ import java.util.logging.Level;
 
 public class Yaml {
 
-    private final JavaPlugin javaPlugin;
+    private JavaPlugin javaPlugin;
     private final String dir;
     private final String name;
     private File file;
@@ -58,14 +58,14 @@ public class Yaml {
         this.name = name;
     }
 
+    public Yaml(String dir, String name) {
+        this.dir = dir.replaceAll("/", File.separator);
+        this.name = name;
+    }
+
     public static List<FileConfiguration> getFolderFiles(String dir) {
         File folder = new File(dir);
-        File[] files = folder.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File pathname) {
-                return pathname.getName().endsWith(".yml");
-            }
-        });
+        File[] files = folder.listFiles(pathname -> pathname.getName().endsWith(".yml"));
         List<FileConfiguration> fileConfigurations = new ArrayList<>();
         for (File file : files) {
             fileConfigurations.add(YamlConfiguration.loadConfiguration(file));
@@ -98,11 +98,13 @@ public class Yaml {
             }
         }
         fileConfiguration = YamlConfiguration.loadConfiguration(file);
-        if (javaPlugin.getResource(name + ".yml") != null) {
-            Reader defConfigStream = new InputStreamReader(Objects.requireNonNull(javaPlugin.getResource(name + ".yml")), StandardCharsets.UTF_8);
-            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
-            fileConfiguration.setDefaults(defConfig);
-            saveFileConfiguration();
+        if (javaPlugin !=null) {
+            if (javaPlugin.getResource(name + ".yml") != null) {
+                Reader defConfigStream = new InputStreamReader(Objects.requireNonNull(javaPlugin.getResource(name + ".yml")), StandardCharsets.UTF_8);
+                YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+                fileConfiguration.setDefaults(defConfig);
+                saveFileConfiguration();
+            }
         }
     }
 

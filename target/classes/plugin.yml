@@ -1,6 +1,6 @@
 main: club.spfmc.simplehomes.SimpleHomes
 name: SimpleHomes
-version: 1.0
+version: 1.6
 author: SirOswaldo
 website: "https://www.kayteam.org"
 softdepend:
@@ -16,6 +16,8 @@ commands:
     description: Open inventory
   SimpleHomes:
     description: Manage this plugin
+  MigrateHomes:
+    description: Migrate homes from others plugins.
 permissions:
   simple.admin.homes:
     description: Manage this plugin
@@ -33,3 +35,7 @@ permissions:
     description: Bypass countdown teleport
   simple.bypass.home.movement:
     description: Bypass movement teleport
+  simple.notify.update:
+    description: Notify to plugin update
+  simple.migrate.homes:
+    description: Migrate homes from others plugins

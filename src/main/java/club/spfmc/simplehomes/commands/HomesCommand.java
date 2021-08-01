@@ -73,7 +73,7 @@ public class HomesCommand extends SimpleCommand {
                     if (player.hasPermission("simple.homes.other")) {
                         Yaml yaml = new Yaml(simpleHomes, "players", arguments[0]);
                         if (yaml.existFileConfiguration()) {
-                            homesManager.loadHomes(arguments[0]);
+                            homesManager.loadHomes(target);
                             Homes homes = homesManager.getHomes(arguments[0]);
                             if (homes.getHomes().size() > 0) {
                                 int rows = simpleHomes.getSettings().getInt("inventory.homes.rows", 1);

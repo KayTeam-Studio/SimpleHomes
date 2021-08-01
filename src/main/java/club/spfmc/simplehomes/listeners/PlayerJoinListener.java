@@ -37,10 +37,9 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        String name = player.getName();
         HomesManager homesManager = simpleHomes.getHomesManager();
-        homesManager.loadHomes(name);
-        if (player.isOp()) {
+        homesManager.loadHomes(player);
+        if (player.hasPermission("simple.notify.update")) {
             if (simpleHomes.getUpdateChecker().getUpdateCheckResult().equals(UpdateChecker.UpdateCheckResult.OUT_DATED)) {
                 simpleHomes.getUpdateChecker().sendOutDatedMessage(player);
             }

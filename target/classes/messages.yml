@@ -39,3 +39,9 @@ admin:
     - " &6/SimpleHomes &eversion &8- &fView the curren plugin version."
   reloaded: "%prefix% &fThe plugin &9%plugin%&f has been reloaded."
   version: "%prefix% &fVersion: &9%version%"
+migrateHomes:
+  isConsole: "%prefix% &fThis command is disabled in the console."
+  noPermission: "%prefix% &fYou do not have permission."
+  emptyName: "%prefix% &fThe name are empty."
+  invalidPlugin: "%prefix% &fThe plugin &9%plugin%&f is invalid or no exist."
+  migrateComplete: "%prefix% &fAll homes from &9%plugin%&f has been migrated."

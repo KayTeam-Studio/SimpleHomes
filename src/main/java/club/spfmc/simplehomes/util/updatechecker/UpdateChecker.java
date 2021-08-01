@@ -100,11 +100,12 @@ public class UpdateChecker {
         List<String> message = new ArrayList<>();
         message.add("");
         message.add("&f>>");
-        message.add("&f>> &6The plugin is outdated.");
+        message.add("&f>> &6The plugin " + javaPlugin.getDescription().getName() + "is outdated.");
         message.add("&f>> &6Current Version &f" + javaPlugin.getDescription().getVersion());
         message.add("&f>>");
         message.add("&f>> &6Latest Version &f" + latestVersionString);
-        message.add("&f>> &6Download latest version here &f" + getResourceURL());
+        message.add("&f>> &6Download latest version here");
+        message.add("&f>> &f" + getResourceURL());
         message.add("&f>>");
         message.add("");
         for(String line : message){

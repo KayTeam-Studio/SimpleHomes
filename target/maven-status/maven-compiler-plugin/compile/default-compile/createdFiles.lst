@@ -3,8 +3,8 @@ club\spfmc\simplehomes\util\inventory\SimplePagesInventory$1.class
 club\spfmc\simplehomes\util\task\Task.class
 club\spfmc\simplehomes\util\bStats\Metrics.class
 club\spfmc\simplehomes\util\bStats\Metrics$CustomChart.class
+club\spfmc\simplehomes\commands\MigrateHomesCommand.class
 club\spfmc\simplehomes\util\bStats\Metrics$DrilldownPie.class
-club\spfmc\simplehomes\util\yaml\Yaml$1.class
 club\spfmc\simplehomes\util\bStats\Metrics$AdvancedBarChart.class
 club\spfmc\simplehomes\home\Home.class
 club\spfmc\simplehomes\inventories\DeleteHomeConfirmInventory.class
@@ -19,7 +19,6 @@ club\spfmc\simplehomes\util\inventory\SimpleConfirmInventory.class
 club\spfmc\simplehomes\util\inventory\SimplePagesInventory.class
 club\spfmc\simplehomes\util\bStats\Metrics$JsonObjectBuilder.class
 club\spfmc\simplehomes\util\bStats\Metrics$SimpleBarChart.class
-club\spfmc\simplehomes\util\inventory\SimplePagesInventory2.class
 club\spfmc\simplehomes\listeners\PlayerJoinListener.class
 club\spfmc\simplehomes\util\bStats\Metrics$MultiLineChart.class
 club\spfmc\simplehomes\inventories\HomesInventory.class
@@ -27,7 +26,7 @@ club\spfmc\simplehomes\home\Homes.class
 club\spfmc\simplehomes\util\bStats\Metrics$SimplePie.class
 club\spfmc\simplehomes\commands\DeleteHomeCommand.class
 club\spfmc\simplehomes\util\inventory\SimpleInventory.class
-club\spfmc\simplehomes\util\inventory\SimplePagesInventory2$1.class
+club\spfmc\simplehomes\placeholderapi\SimpleHomesExpansion.class
 club\spfmc\simplehomes\SimpleHomes.class
 club\spfmc\simplehomes\util\task\OpenInventoryTask.class
 club\spfmc\simplehomes\util\updatechecker\UpdateChecker$UpdateCheckResult.class

@@ -24,10 +24,12 @@ import club.spfmc.simplehomes.inventories.HomesInventory;
 import club.spfmc.simplehomes.listeners.PlayerJoinListener;
 import club.spfmc.simplehomes.listeners.PlayerMoveListener;
 import club.spfmc.simplehomes.listeners.PlayerQuitListener;
+import club.spfmc.simplehomes.placeholderapi.SimpleHomesExpansion;
 import club.spfmc.simplehomes.util.bStats.Metrics;
 import club.spfmc.simplehomes.util.kayteam.KayTeam;
 import club.spfmc.simplehomes.util.updatechecker.UpdateChecker;
 import club.spfmc.simplehomes.util.yaml.Yaml;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -84,6 +86,7 @@ public class SimpleHomes extends JavaPlugin {
         new HomeCommand(this);
         new HomesCommand(this);
         new SimpleHomesCommand(this);
+        new MigrateHomesCommand(this);
         // Listeners
         new PlayerJoinListener(this);
         new PlayerQuitListener(this);
@@ -94,7 +97,7 @@ public class SimpleHomes extends JavaPlugin {
         getServer().getPluginManager().registerEvents(deleteHomeConfirmInventory, this);
         // Load Player Homes
         for (Player player:getServer().getOnlinePlayers()) {
-            homesManager.loadHomes(player.getName());
+            homesManager.loadHomes(player);
         }
         // MaxHomes
         homesManager.loadMaxHomes();
@@ -104,6 +107,10 @@ public class SimpleHomes extends JavaPlugin {
         updateChecker = new UpdateChecker(this, 94734);
         if (updateChecker.getUpdateCheckResult().equals(UpdateChecker.UpdateCheckResult.OUT_DATED)) {
             updateChecker.sendOutDatedMessage(getServer().getConsoleSender());
+        }
+        // PlaceholderAPI
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new SimpleHomesExpansion(this).register();
         }
     }
 
