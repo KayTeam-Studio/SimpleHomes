@@ -21,7 +21,7 @@ import club.spfmc.simplehomes.SimpleHomes;
 import club.spfmc.simplehomes.home.Home;
 import club.spfmc.simplehomes.home.Homes;
 import club.spfmc.simplehomes.home.HomesManager;
-import club.spfmc.simplehomes.inventories.DeleteHomeConfirmInventory2;
+import club.spfmc.simplehomes.inventories.DeleteHomeConfirmInventory;
 import club.spfmc.simplehomes.util.command.SimpleCommand;
 import club.spfmc.simplehomes.util.yaml.Yaml;
 import org.bukkit.command.Command;
@@ -49,7 +49,7 @@ public class DeleteHomeCommand extends SimpleCommand {
                 Homes homes = homesManager.getHomes(player.getName());
                 if (homes.containHome(arguments[0])) {
                     Home home = homes.getHome(arguments[0]);
-                    simpleHomes.getMenuInventoryManager().openInventory(player, new DeleteHomeConfirmInventory2(simpleHomes, home, "cmd"));
+                    simpleHomes.getMenuInventoryManager().openInventory(player, new DeleteHomeConfirmInventory(simpleHomes, home, "cmd"));
                 } else {
                     messages.sendMessage(player, "deleteHome.invalidHome", new String[][] {{"%home%", arguments[0]}});
                 }

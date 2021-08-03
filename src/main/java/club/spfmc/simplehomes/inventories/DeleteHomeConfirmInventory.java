@@ -27,12 +27,12 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class DeleteHomeConfirmInventory2 extends ConfirmInventory {
+public class DeleteHomeConfirmInventory extends ConfirmInventory {
 
     private final SimpleHomes simpleHomes;
     private final String from;
 
-    public DeleteHomeConfirmInventory2(SimpleHomes simpleHomes, Home home, String from) {
+    public DeleteHomeConfirmInventory(SimpleHomes simpleHomes, Home home, String from) {
         super(home);
         this.simpleHomes = simpleHomes;
         this.from = from;
@@ -104,7 +104,7 @@ public class DeleteHomeConfirmInventory2 extends ConfirmInventory {
         player.closeInventory();
         if (homes.getHomes().size() > 0) {
             if (from.equals("gui")) {
-                simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory2(simpleHomes, homes.getHomes()));
+                simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes.getHomes()));
             }
         } else {
             if (player.getName().equals(owner)) {
@@ -126,7 +126,7 @@ public class DeleteHomeConfirmInventory2 extends ConfirmInventory {
             HomesManager homesManager = simpleHomes.getHomesManager();
             Homes homes = homesManager.getHomes(home.getOwner());
             player.closeInventory();
-            simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory2(simpleHomes, homes.getHomes()));
+            simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes.getHomes()));
         }
     }
 }

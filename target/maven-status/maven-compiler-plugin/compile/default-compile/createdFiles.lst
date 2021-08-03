@@ -3,6 +3,7 @@ club\spfmc\simplehomes\util\bStats\Metrics$DrilldownPie.class
 club\spfmc\simplehomes\util\bStats\Metrics$AdvancedBarChart.class
 club\spfmc\simplehomes\util\inventory\inventories\PagesInventory$6.class
 club\spfmc\simplehomes\home\Home.class
+club\spfmc\simplehomes\inventories\DeleteHomeConfirmInventory.class
 club\spfmc\simplehomes\util\inventory\inventories\PagesInventory$2.class
 club\spfmc\simplehomes\util\inventory\Item.class
 club\spfmc\simplehomes\commands\SimpleHomesCommand.class
@@ -46,13 +47,12 @@ club\spfmc\simplehomes\util\inventory\inventories\PagesInventory$5$1.class
 club\spfmc\simplehomes\util\bStats\Metrics$JsonObjectBuilder.class
 club\spfmc\simplehomes\util\inventory\inventories\PagesInventory$4.class
 club\spfmc\simplehomes\util\inventory\inventories\PagesInventory$5.class
+club\spfmc\simplehomes\inventories\HomesInventory.class
 club\spfmc\simplehomes\home\Homes.class
 club\spfmc\simplehomes\util\inventory\inventories\ConfirmInventory$3.class
-club\spfmc\simplehomes\inventories\DeleteHomeConfirmInventory2.class
 club\spfmc\simplehomes\SimpleHomes.class
 club\spfmc\simplehomes\util\bStats\Metrics$1.class
 club\spfmc\simplehomes\util\inventory\inventories\PagesInventory$7$1.class
 club\spfmc\simplehomes\home\HomesManager.class
-club\spfmc\simplehomes\inventories\HomesInventory2.class
 club\spfmc\simplehomes\util\inventory\inventories\ConfirmInventory.class
 club\spfmc\simplehomes\util\kayteam\KayTeam.class

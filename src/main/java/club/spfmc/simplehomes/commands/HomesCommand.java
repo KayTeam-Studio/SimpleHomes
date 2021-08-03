@@ -20,7 +20,7 @@ package club.spfmc.simplehomes.commands;
 import club.spfmc.simplehomes.SimpleHomes;
 import club.spfmc.simplehomes.home.Homes;
 import club.spfmc.simplehomes.home.HomesManager;
-import club.spfmc.simplehomes.inventories.HomesInventory2;
+import club.spfmc.simplehomes.inventories.HomesInventory;
 import club.spfmc.simplehomes.util.command.SimpleCommand;
 import club.spfmc.simplehomes.util.yaml.Yaml;
 import org.bukkit.command.Command;
@@ -49,7 +49,7 @@ public class HomesCommand extends SimpleCommand {
                     if (player.equals(target)) {
                         Homes homes = homesManager.getHomes(player.getName());
                         if (homes.getHomes().size() > 0) {
-                            simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory2(simpleHomes, homes.getHomes()));
+                            simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes.getHomes()));
                         } else {
                             messages.sendMessage(player, "homes.emptyHomes");
                         }
@@ -57,7 +57,7 @@ public class HomesCommand extends SimpleCommand {
                         if (player.hasPermission("simple.homes.other")) {
                             Homes homes = homesManager.getHomes(target.getName());
                             if (homes.getHomes().size() > 0) {
-                                simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory2(simpleHomes, homes.getHomes()));
+                                simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes.getHomes()));
                             } else {
                                 messages.sendMessage(player, "homes.emptyHomesOther", new String[][] {
                                         {"%player%", arguments[0]}
@@ -74,7 +74,7 @@ public class HomesCommand extends SimpleCommand {
                             homesManager.loadHomes(arguments[0]);
                             Homes homes = homesManager.getHomes(arguments[0]);
                             if (homes.getHomes().size() > 0) {
-                                simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory2(simpleHomes, homes.getHomes()));
+                                simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes.getHomes()));
                             } else {
                                 messages.sendMessage(player, "homes.emptyHomesOther", new String[][] {
                                         {"%player%", arguments[0]}
@@ -92,7 +92,7 @@ public class HomesCommand extends SimpleCommand {
             } else {
                 Homes homes = homesManager.getHomes(player.getName());
                 if (homes.getHomes().size() > 0) {
-                    simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory2(simpleHomes, homes.getHomes()));
+                    simpleHomes.getMenuInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes.getHomes()));
                 } else {
                     messages.sendMessage(player, "homes.emptyHomes");
                 }

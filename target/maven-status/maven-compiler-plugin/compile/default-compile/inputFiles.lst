@@ -6,7 +6,6 @@ C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\u
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\home\Homes.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\placeholderapi\SimpleHomesExpansion.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\task\Task.java
-C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\inventories\DeleteHomeConfirmInventory2.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\tasks\TeleportTask.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\bStats\Metrics.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\home\HomesManager.java
@@ -14,11 +13,13 @@ C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\i
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\commands\DeleteHomeCommand.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\commands\SetHomeCommand.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\kayteam\KayTeam.java
+C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\inventories\HomesInventory.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\listeners\PlayerMoveListener.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\inventory\inventories\ConfirmInventory.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\SimpleHomes.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\yaml\Yaml.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\inventory\inventories\PagesInventory.java
+C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\inventories\DeleteHomeConfirmInventory.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\command\SimpleCommand.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\listeners\PlayerQuitListener.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\commands\SimpleHomesCommand.java
@@ -26,4 +27,3 @@ C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\comman
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\inventory\Item.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\home\Home.java
 C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\util\task\OpenInventoryTask.java
-C:\Users\Pc\IdeaProjects\SimpleHomes\src\main\java\club\spfmc\simplehomes\inventories\HomesInventory2.java

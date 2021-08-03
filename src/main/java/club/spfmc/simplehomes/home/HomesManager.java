@@ -19,7 +19,6 @@ package club.spfmc.simplehomes.home;
 
 import club.spfmc.simplehomes.SimpleHomes;
 import club.spfmc.simplehomes.util.yaml.Yaml;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -67,7 +66,12 @@ public class HomesManager {
                         if (world != null) {
                             home.setWorld(world.getName());
                         } else {
-                            home.setWorld("invalid");
+                            world = simpleHomes.getServer().getWorld(essentialsYaml.getString("homes." + name + ".world"));
+                            if (world != null) {
+                                home.setWorld(world.getName());
+                            } else {
+                                home.setWorld("invalid");
+                            }
                         }
                         home.setX(essentialsYaml.getDouble("homes." + name + ".x"));
                         home.setY(essentialsYaml.getDouble("homes." + name + ".y"));

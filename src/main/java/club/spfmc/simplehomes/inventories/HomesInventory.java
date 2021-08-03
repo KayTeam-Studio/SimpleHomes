@@ -29,12 +29,12 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomesInventory2 extends PagesInventory {
+public class HomesInventory extends PagesInventory {
 
     private final SimpleHomes simpleHomes;
     private final List<Home> homes;
 
-    public HomesInventory2(SimpleHomes simpleHomes, List<Home> homes) {
+    public HomesInventory(SimpleHomes simpleHomes, List<Home> homes) {
         super(simpleHomes.getSettings().getString("inventory.homes.title"), simpleHomes.getSettings().getInt("inventory.homes.rows", 1), new ArrayList<>(homes));
         this.simpleHomes = simpleHomes;
         this.homes = homes;
@@ -104,7 +104,7 @@ public class HomesInventory2 extends PagesInventory {
     @Override
     public void onRightClick(Player player, Object object) {
         player.closeInventory();
-        simpleHomes.getMenuInventoryManager().openInventory(player, new DeleteHomeConfirmInventory2(simpleHomes, (Home) object, "gui"));
+        simpleHomes.getMenuInventoryManager().openInventory(player, new DeleteHomeConfirmInventory(simpleHomes, (Home) object, "gui"));
     }
 
 }
