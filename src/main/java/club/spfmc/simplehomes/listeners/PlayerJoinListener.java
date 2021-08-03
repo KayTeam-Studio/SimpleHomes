@@ -31,7 +31,6 @@ public class PlayerJoinListener implements Listener {
 
     public PlayerJoinListener(SimpleHomes simpleHomes) {
         this.simpleHomes = simpleHomes;
-        simpleHomes.getServer().getPluginManager().registerEvents(this, simpleHomes);
     }
 
     @EventHandler

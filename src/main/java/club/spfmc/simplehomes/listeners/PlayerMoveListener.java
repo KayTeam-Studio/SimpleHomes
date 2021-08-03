@@ -32,7 +32,6 @@ public class PlayerMoveListener implements Listener {
 
     public PlayerMoveListener(SimpleHomes simpleHomes) {
         this.simpleHomes = simpleHomes;
-        simpleHomes.getServer().getPluginManager().registerEvents(this, simpleHomes);
     }
 
     @EventHandler

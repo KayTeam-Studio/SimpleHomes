@@ -30,7 +30,6 @@ public class PlayerQuitListener implements Listener {
 
     public PlayerQuitListener(SimpleHomes simpleHomes) {
         this.simpleHomes = simpleHomes;
-        simpleHomes.getServer().getPluginManager().registerEvents(this, simpleHomes);
     }
 
     @EventHandler
