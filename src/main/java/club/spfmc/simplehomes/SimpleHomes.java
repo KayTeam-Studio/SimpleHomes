@@ -19,19 +19,20 @@ package club.spfmc.simplehomes;
 
 import club.spfmc.simplehomes.commands.*;
 import club.spfmc.simplehomes.home.HomesManager;
-import club.spfmc.simplehomes.inventories.DeleteHomeConfirmInventory;
-import club.spfmc.simplehomes.inventories.HomesInventory;
 import club.spfmc.simplehomes.listeners.PlayerJoinListener;
 import club.spfmc.simplehomes.listeners.PlayerMoveListener;
 import club.spfmc.simplehomes.listeners.PlayerQuitListener;
 import club.spfmc.simplehomes.placeholderapi.SimpleHomesExpansion;
 import club.spfmc.simplehomes.util.bStats.Metrics;
+import club.spfmc.simplehomes.util.inventory.MenuInventoryManager;
 import club.spfmc.simplehomes.util.kayteam.KayTeam;
 import club.spfmc.simplehomes.util.updatechecker.UpdateChecker;
 import club.spfmc.simplehomes.util.yaml.Yaml;
-import me.clip.placeholderapi.PlaceholderAPI;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SimpleHomes extends JavaPlugin {
@@ -50,13 +51,9 @@ public class SimpleHomes extends JavaPlugin {
         return homesManager;
     }
 
-    private HomesInventory homesInventory;
-    public HomesInventory getHomesInventory() {
-        return homesInventory;
-    }
-    private DeleteHomeConfirmInventory deleteHomeConfirmInventory;
-    public DeleteHomeConfirmInventory getDeleteHomeConfirmInventory() {
-        return deleteHomeConfirmInventory;
+    private final MenuInventoryManager menuInventoryManager = new MenuInventoryManager();
+    public MenuInventoryManager getMenuInventoryManager() {
+        return menuInventoryManager;
     }
 
     // Update Checker
@@ -65,53 +62,23 @@ public class SimpleHomes extends JavaPlugin {
         return updateChecker;
     }
 
+    // Vault
+    private static Economy economy = null;
+    public static Economy getEconomy() {
+        return economy;
+    }
+
     @Override
     public void onEnable() {
-        // bStats
-        int pluginId = 12209;
-        Metrics metrics = new Metrics(this, pluginId);
-        metrics.addCustomChart(new Metrics.SingleLineChart("homes", () -> {
-            int homes = 0;
-            for (FileConfiguration fileConfiguration:Yaml.getFolderFiles(getDataFolder() + "/players")) {
-                homes = homes + fileConfiguration.getKeys(false).size();
-            }
-            return homes;
-        }));
-        // Yaml Files
-        settings.registerFileConfiguration();
-        messages.registerFileConfiguration();
-        //Commands
-        new SetHomeCommand(this);
-        new DeleteHomeCommand(this);
-        new HomeCommand(this);
-        new HomesCommand(this);
-        new SimpleHomesCommand(this);
-        new MigrateHomesCommand(this);
-        // Listeners
-        new PlayerJoinListener(this);
-        new PlayerQuitListener(this);
-        new PlayerMoveListener(this);
-        homesInventory = new HomesInventory(this);
-        getServer().getPluginManager().registerEvents(homesInventory, this);
-        deleteHomeConfirmInventory = new DeleteHomeConfirmInventory(this);
-        getServer().getPluginManager().registerEvents(deleteHomeConfirmInventory, this);
-        // Load Player Homes
-        for (Player player:getServer().getOnlinePlayers()) {
-            homesManager.loadHomes(player);
-        }
-        // MaxHomes
-        homesManager.loadMaxHomes();
-        // Enabled
+        bStats();
+        registerFiles();
+        registerCommands();
+        registerListeners();
+        loadHomes();
+        updateChecker();
+        placeholderApi();
+        setupEconomy();
         KayTeam.sendBrandMessage(this, "&aEnabled");
-        // UpdateChecker
-        updateChecker = new UpdateChecker(this, 94734);
-        if (updateChecker.getUpdateCheckResult().equals(UpdateChecker.UpdateCheckResult.OUT_DATED)) {
-            updateChecker.sendOutDatedMessage(getServer().getConsoleSender());
-        }
-        // PlaceholderAPI
-        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new SimpleHomesExpansion(this).register();
-        }
     }
 
     @Override
@@ -122,6 +89,71 @@ public class SimpleHomes extends JavaPlugin {
             homesManager.unloadHomes(player.getName());
         }
         KayTeam.sendBrandMessage(this, "&cDisabled");
+    }
+
+    private void registerFiles() {
+        settings.registerFileConfiguration();
+        messages.registerFileConfiguration();
+    }
+
+    private void registerListeners() {
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new PlayerJoinListener(this), this);
+        pluginManager.registerEvents(new PlayerQuitListener(this), this);
+        pluginManager.registerEvents(new PlayerMoveListener(this), this);
+        pluginManager.registerEvents(menuInventoryManager, this);
+    }
+
+    private void registerCommands() {
+        new SetHomeCommand(this);
+        new DeleteHomeCommand(this);
+        new HomeCommand(this);
+        new HomesCommand(this);
+        new SimpleHomesCommand(this);
+        new MigrateHomesCommand(this);
+    }
+
+    private void bStats() {
+        int pluginId = 12209;
+        Metrics metrics = new Metrics(this, pluginId);
+        metrics.addCustomChart(new Metrics.SingleLineChart("homes", () -> {
+            int homes = 0;
+            for (FileConfiguration fileConfiguration:Yaml.getFolderFiles(getDataFolder() + "/players")) {
+                homes = homes + fileConfiguration.getKeys(false).size();
+            }
+            return homes;
+        }));
+    }
+
+    private void placeholderApi() {
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new SimpleHomesExpansion(this).register();
+        }
+    }
+
+    private void updateChecker() {
+        updateChecker = new UpdateChecker(this, 94734);
+        if (updateChecker.getUpdateCheckResult().equals(UpdateChecker.UpdateCheckResult.OUT_DATED)) {
+            updateChecker.sendOutDatedMessage(getServer().getConsoleSender());
+        }
+    }
+
+    private void loadHomes() {
+        for (Player player:getServer().getOnlinePlayers()) {
+            homesManager.loadHomes(player);
+        }
+        homesManager.loadMaxHomes();
+    }
+
+    private void setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+            return;
+        }
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return;
+        }
+        economy = rsp.getProvider();
     }
 
 }

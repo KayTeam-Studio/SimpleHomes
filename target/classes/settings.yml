@@ -19,6 +19,10 @@ teleport:
     2: "NOTE_PLING"
     1: "NOTE_PLING"
     0: "ENDERMAN_TELEPORT"
+vault:
+  setHome: 100.0 # Set Home Cost
+  overwriteHome: 50.0 # Overwrite Home Cost
+  deleteHome: 100.0 # Refund Amount For Delete Home
 homes:
   default: 2
   vip: 5 # simple.max.homes.vip

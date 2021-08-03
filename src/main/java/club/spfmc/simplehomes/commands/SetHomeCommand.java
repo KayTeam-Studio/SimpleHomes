@@ -23,6 +23,7 @@ import club.spfmc.simplehomes.home.Homes;
 import club.spfmc.simplehomes.home.HomesManager;
 import club.spfmc.simplehomes.util.command.SimpleCommand;
 import club.spfmc.simplehomes.util.yaml.Yaml;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.ConsoleCommandSender;
@@ -52,20 +53,69 @@ public class SetHomeCommand extends SimpleCommand {
                 }
                 Homes homes = homesManager.getHomes(player.getName());
                 if (homes.getHomes().size() < maxHomes || homes.containHome(arguments[0])) {
-                    Location location = player.getLocation();
-                    Home home = new Home(player.getName(), arguments[0]);
-                    home.setWorld(location.getWorld().getName());
-                    home.setX(location.getX());
-                    home.setY(location.getY());
-                    home.setZ(location.getZ());
-                    home.setYaw(location.getYaw());
-                    home.setPitch(location.getPitch());
-                    if (homes.containHome(home.getName())) {
-                        messages.sendMessage(player, "setHome.overwritten", new String[][]{{"%home%", arguments[0]}});
+                    if (homes.containHome(arguments[0])) {
+                        if (SimpleHomes.getEconomy() != null) {
+                            Economy economy = SimpleHomes.getEconomy();
+                            double cost = simpleHomes.getSettings().getDouble("vault.overwriteHome", 0.0);
+                            if (economy.has(player, cost)) {
+                                economy.withdrawPlayer(player, cost);
+                                Location location = player.getLocation();
+                                Home home = new Home(player.getName(), arguments[0]);
+                                home.setWorld(location.getWorld().getName());
+                                home.setX(location.getX());
+                                home.setY(location.getY());
+                                home.setZ(location.getZ());
+                                home.setYaw(location.getYaw());
+                                home.setPitch(location.getPitch());
+                                messages.sendMessage(player, "setHome.overwritten", new String[][]{{"%home%", arguments[0]}, {"%cost%", cost + ""}});
+                                homes.addHome(home);
+                            } else {
+                                messages.sendMessage(player, "setHome.insufficientOverwrittenMoney", new String[][]{{"%cost%", cost + ""}});
+                            }
+                        } else {
+                            Location location = player.getLocation();
+                            Home home = new Home(player.getName(), arguments[0]);
+                            home.setWorld(location.getWorld().getName());
+                            home.setX(location.getX());
+                            home.setY(location.getY());
+                            home.setZ(location.getZ());
+                            home.setYaw(location.getYaw());
+                            home.setPitch(location.getPitch());
+                            messages.sendMessage(player, "setHome.overwritten", new String[][]{{"%home%", arguments[0]}});
+                            homes.addHome(home);
+                        }
                     } else {
-                        messages.sendMessage(player, "setHome.set", new String[][]{{"%home%", arguments[0]}});
+                        if (SimpleHomes.getEconomy() != null) {
+                            Economy economy = SimpleHomes.getEconomy();
+                            double cost = simpleHomes.getSettings().getDouble("vault.setHome", 0.0);
+                            if (economy.has(player, cost) || player.hasPermission("simple.bypass.home.cost")) {
+                                economy.withdrawPlayer(player, cost);
+                                Location location = player.getLocation();
+                                Home home = new Home(player.getName(), arguments[0]);
+                                home.setWorld(location.getWorld().getName());
+                                home.setX(location.getX());
+                                home.setY(location.getY());
+                                home.setZ(location.getZ());
+                                home.setYaw(location.getYaw());
+                                home.setPitch(location.getPitch());
+                                messages.sendMessage(player, "setHome.set", new String[][]{{"%home%", arguments[0]}, {"%cost%", cost + ""}});
+                                homes.addHome(home);
+                            } else {
+                                messages.sendMessage(player, "setHome.insufficientSetMoney", new String[][]{{"%cost%", cost + ""}});
+                            }
+                        } else {
+                            Location location = player.getLocation();
+                            Home home = new Home(player.getName(), arguments[0]);
+                            home.setWorld(location.getWorld().getName());
+                            home.setX(location.getX());
+                            home.setY(location.getY());
+                            home.setZ(location.getZ());
+                            home.setYaw(location.getYaw());
+                            home.setPitch(location.getPitch());
+                            messages.sendMessage(player, "setHome.set", new String[][]{{"%home%", arguments[0]}});
+                            homes.addHome(home);
+                        }
                     }
-                    homes.addHome(home);
                 } else {
                     messages.sendMessage(player, "setHome.maxHomesReached");
                 }

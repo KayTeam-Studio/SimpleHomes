@@ -1,10 +1,11 @@
 main: club.spfmc.simplehomes.SimpleHomes
 name: SimpleHomes
-version: 1.6
+version: 1.7
 author: SirOswaldo
 website: "https://www.kayteam.org"
 softdepend:
   - PlaceholderAPI
+  - Vault
 commands:
   SetHome:
     description: Set a home
@@ -35,6 +36,8 @@ permissions:
     description: Bypass countdown teleport
   simple.bypass.home.movement:
     description: Bypass movement teleport
+  simple.bypass.home.cost:
+    description: Bypass home cost
   simple.notify.update:
     description: Notify to plugin update
   simple.migrate.homes:

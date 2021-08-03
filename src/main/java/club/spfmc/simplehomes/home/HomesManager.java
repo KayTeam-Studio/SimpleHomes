@@ -115,6 +115,25 @@ public class HomesManager {
         }
     }
 
+    public void loadHomes(String owner) {
+        Yaml yaml = new Yaml(simpleHomes, "players", owner);
+        Homes homes = new Homes(owner);
+        playerHomes.put(owner, homes);
+        if (yaml.existFileConfiguration()) {
+            yaml.registerFileConfiguration();
+            for (String name:yaml.getFileConfiguration().getKeys(false)) {
+                Home home = new Home(owner, name);
+                home.setWorld(yaml.getString(name + ".world"));
+                home.setX(yaml.getDouble(name + ".x"));
+                home.setY(yaml.getDouble(name + ".y"));
+                home.setZ(yaml.getDouble(name + ".z"));
+                home.setYaw((float) yaml.getDouble(name + ".yaw"));
+                home.setPitch((float) yaml.getDouble(name + ".pitch"));
+                homes.addHome(home);
+            }
+        }
+    }
+
     public void unloadHomes(String owner) {
         Yaml yaml = new Yaml(simpleHomes, "players", owner);
         yaml.registerFileConfiguration();

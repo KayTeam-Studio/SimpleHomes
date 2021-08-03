@@ -20,43 +20,28 @@ package club.spfmc.simplehomes.inventories;
 import club.spfmc.simplehomes.SimpleHomes;
 import club.spfmc.simplehomes.home.Home;
 import club.spfmc.simplehomes.tasks.TeleportTask;
-import club.spfmc.simplehomes.util.inventory.SimplePagesInventory;
+import club.spfmc.simplehomes.util.inventory.inventories.PagesInventory;
 import club.spfmc.simplehomes.util.yaml.Yaml;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class HomesInventory extends SimplePagesInventory {
+public class HomesInventory2 extends PagesInventory {
 
     private final SimpleHomes simpleHomes;
+    private final List<Home> homes;
 
-    public HomesInventory(SimpleHomes simpleHomes) {
+    public HomesInventory2(SimpleHomes simpleHomes, List<Home> homes) {
+        super(simpleHomes.getSettings().getString("inventory.homes.title"), simpleHomes.getSettings().getInt("inventory.homes.rows", 1), new ArrayList<>(homes));
         this.simpleHomes = simpleHomes;
+        this.homes = homes;
     }
 
     @Override
-    public String getTitle() {
-        return simpleHomes.getSettings().getString("inventory.homes.title");
-    }
-
-    @Override
-    public ItemStack getPanel() {
-        return simpleHomes.getSettings().getItemStack("inventory.homes.items.panel");
-    }
-
-    @Override
-    public ItemStack getInformation(List<Object> objects) {
-        Home home = (Home) objects.get(0);
-        return Yaml.replace(simpleHomes.getSettings().getItemStack("inventory.homes.items.information"), new String[][] {
-                {"%owner%", home.getOwner()},
-                {"%amount%", objects.size() + ""}
-        });
-    }
-
-    @Override
-    public ItemStack getFormattedItem(Object object) {
+    public ItemStack getListedItem(Object object) {
         if (object != null) {
             Home home = (Home) object;
             ItemStack item = simpleHomes.getSettings().getItemStack("inventory.homes.items.home");
@@ -75,43 +60,51 @@ public class HomesInventory extends SimplePagesInventory {
     }
 
     @Override
-    public ItemStack getNextPageButton() {
+    public ItemStack getPanel() {
+        return simpleHomes.getSettings().getItemStack("inventory.homes.items.panel");
+    }
+
+    @Override
+    public ItemStack getInformation() {
+        Home home = homes.get(0);
+        return Yaml.replace(simpleHomes.getSettings().getItemStack("inventory.homes.items.information"), new String[][] {
+                {"%owner%", home.getOwner()},
+                {"%amount%", homes.size() + ""}
+        });
+    }
+
+    @Override
+    public ItemStack getPrevious() {
+        return simpleHomes.getSettings().getItemStack("inventory.homes.items.prevPage");
+    }
+
+    @Override
+    public ItemStack getClose() {
+        return simpleHomes.getSettings().getItemStack("inventory.homes.items.close");
+    }
+
+    @Override
+    public ItemStack getNext() {
         return simpleHomes.getSettings().getItemStack("inventory.homes.items.nextPage");
     }
 
     @Override
-    public ItemStack getPrevPageButton() {
-        return simpleHomes.getSettings().getItemStack("inventory.homes.items.prevPage");
-    }
-
-
-    @Override
-    public ItemStack getCloseButton() {
-        return simpleHomes.getSettings().getItemStack("inventory.homes.items.close");
-    }
-
-
-    @Override
     public void onLeftClick(Player player, Object object) {
-        if (object != null) {
-            player.closeInventory();
-            if (!TeleportTask.getTeleporting().contains(player.getName())) {
-                Home home = (Home) object;
-                TeleportTask teleportTask = new TeleportTask(simpleHomes, player, home);
-                teleportTask.startScheduler();
-            } else {
-                Yaml messages = simpleHomes.getMessages();
-                messages.sendMessage(player, "home.alreadyInTeleporting");
-            }
+        player.closeInventory();
+        if (!TeleportTask.getTeleporting().contains(player.getName())) {
+            Home home = (Home) object;
+            TeleportTask teleportTask = new TeleportTask(simpleHomes, player, home);
+            teleportTask.startScheduler();
+        } else {
+            Yaml messages = simpleHomes.getMessages();
+            messages.sendMessage(player, "home.alreadyInTeleporting");
         }
     }
 
     @Override
     public void onRightClick(Player player, Object object) {
-        if (object != null) {
-            player.closeInventory();
-            simpleHomes.getDeleteHomeConfirmInventory().openInventory(player, object);
-        }
+        player.closeInventory();
+        simpleHomes.getMenuInventoryManager().openInventory(player, new DeleteHomeConfirmInventory2(simpleHomes, (Home) object, "gui"));
     }
 
 }
