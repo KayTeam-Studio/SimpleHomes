@@ -62,16 +62,16 @@ public class HomesManager {
                     Homes homes = playerHomes.get(player.getName());
                     for (String name:essentialsYaml.getFileConfiguration().getConfigurationSection("homes").getKeys(false)) {
                         Home home = new Home(player.getName(), name);
-                        World world = simpleHomes.getServer().getWorld(UUID.fromString(essentialsYaml.getString("homes." + name + ".world")));
+                        World world;
+                        try {
+                            world = simpleHomes.getServer().getWorld(UUID.fromString(essentialsYaml.getString("homes." + name + ".world")));
+                        } catch (IllegalArgumentException e) {
+                            world = simpleHomes.getServer().getWorld(essentialsYaml.getString("homes." + name + ".world"));
+                        }
                         if (world != null) {
                             home.setWorld(world.getName());
                         } else {
-                            world = simpleHomes.getServer().getWorld(essentialsYaml.getString("homes." + name + ".world"));
-                            if (world != null) {
-                                home.setWorld(world.getName());
-                            } else {
-                                home.setWorld("invalid");
-                            }
+                            home.setWorld("invalid");
                         }
                         home.setX(essentialsYaml.getDouble("homes." + name + ".x"));
                         home.setY(essentialsYaml.getDouble("homes." + name + ".y"));

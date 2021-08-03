@@ -81,7 +81,10 @@ public class DeleteHomeConfirmInventory extends ConfirmInventory {
         if (SimpleHomes.getEconomy() != null) {
             Economy economy = SimpleHomes.getEconomy();
             if (player.getName().equals(owner)) {
-                economy.depositPlayer(player, simpleHomes.getSettings().getDouble("vault.deleteHome", 0.0));
+                if (!player.hasPermission("simple.bypass.home.cost")) {
+                    double cost = simpleHomes.getSettings().getDouble("vault.deleteHome", 0.0);
+                    economy.depositPlayer(player, cost);
+                }
             }
         }
         HomesManager homesManager = simpleHomes.getHomesManager();

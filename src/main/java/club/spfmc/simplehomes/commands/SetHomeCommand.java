@@ -57,6 +57,9 @@ public class SetHomeCommand extends SimpleCommand {
                         if (SimpleHomes.getEconomy() != null) {
                             Economy economy = SimpleHomes.getEconomy();
                             double cost = simpleHomes.getSettings().getDouble("vault.overwriteHome", 0.0);
+                            if (player.hasPermission("simple.bypass.home.cost")) {
+                                cost = 0;
+                            }
                             if (economy.has(player, cost)) {
                                 economy.withdrawPlayer(player, cost);
                                 Location location = player.getLocation();
@@ -88,7 +91,10 @@ public class SetHomeCommand extends SimpleCommand {
                         if (SimpleHomes.getEconomy() != null) {
                             Economy economy = SimpleHomes.getEconomy();
                             double cost = simpleHomes.getSettings().getDouble("vault.setHome", 0.0);
-                            if (economy.has(player, cost) || player.hasPermission("simple.bypass.home.cost")) {
+                            if (player.hasPermission("simple.bypass.home.cost")) {
+                                cost = 0;
+                            }
+                            if (economy.has(player, cost)) {
                                 economy.withdrawPlayer(player, cost);
                                 Location location = player.getLocation();
                                 Home home = new Home(player.getName(), arguments[0]);
