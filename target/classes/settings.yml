@@ -2,11 +2,7 @@ teleport:
   countdown: 10
   messages:
     10: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
-    5: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
-    4: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
-    3: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
-    2: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
-    1: "&e&lSimple&6&lHomes &8» &fTeleporting in &9%seconds%&f..."
+    0: "&e&lSimple&6&lHomes &8» &fYou have been teleported to home: &9%home_name%&f."
   sounds:
     10: "NOTE_PLING"
     9: "NOTE_PLING"
@@ -19,6 +15,13 @@ teleport:
     2: "NOTE_PLING"
     1: "NOTE_PLING"
     0: "ENDERMAN_TELEPORT"
+  titles:
+    10:
+      title: "&6Teleporting in &9%seconds%&f..."
+      subTitle: "&fDestiny: &9%home_name%"
+    0:
+      title: "&6Teletansported completed"
+      subTitle: "&fHome: &9%home_name%"
 vault:
   setHome: 100.0 # Set Home Cost
   overwriteHome: 50.0 # Overwrite Home Cost

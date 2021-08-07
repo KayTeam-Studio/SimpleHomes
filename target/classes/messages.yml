@@ -23,7 +23,6 @@ home:
   invalidWorld: "%prefix% &fThe world &9%world% &fis invalid or no exist. &cCONTACT A ADMIN"
   cancelByMovement: "%prefix% &fTeleport cancel by move to other block."
   alreadyInTeleporting: "%prefix% &fAlready teleporting countdown."
-  teleported: "%prefix% &fYou has teleported to home: &9%home% &f."
 homes:
   isConsole: "%prefix% &fThis command is disabled in the console."
   noPermission: "%prefix% &fYou do not have permission."

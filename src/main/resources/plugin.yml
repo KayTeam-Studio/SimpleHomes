@@ -1,6 +1,6 @@
 main: club.spfmc.simplehomes.SimpleHomes
 name: SimpleHomes
-version: 1.7.1
+version: 1.8
 author: SirOswaldo
 website: "https://www.kayteam.org"
 softdepend:

@@ -54,12 +54,12 @@ public class Yaml {
 
     public Yaml(JavaPlugin javaPlugin, String dir, String name) {
         this.javaPlugin = javaPlugin;
-        this.dir = javaPlugin.getDataFolder().getPath() + File.separator + dir.replaceAll("/", File.separator);
+        this.dir = javaPlugin.getDataFolder().getPath() + File.separator + dir.replaceAll("\\/", File.separator);
         this.name = name;
     }
 
     public Yaml(String dir, String name) {
-        this.dir = dir.replaceAll("/", File.separator);
+        this.dir = dir.replaceAll("\\/", File.separator);
         this.name = name;
     }
 
@@ -86,24 +86,27 @@ public class Yaml {
             File dirFile = new File(dir);
             if (!dirFile.exists()) {
                 if (dirFile.mkdir()) {
-                    javaPlugin.getLogger().info("The directory '" + dir + "' has been created.");
+                    javaPlugin.getLogger().info("The directory '" + dir +"' has been created.");
                 }
             }
-            try {
-                if (file.createNewFile()) {
-                    javaPlugin.getLogger().info("The file '" + name + ".yml' has been created.");
+            try{
+                if(!file.exists()){
+                    if (file.createNewFile()) {
+                        javaPlugin.getLogger().info("The file '" + name +".yml' has been created.");
+                    }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            } catch (IOException e){}
         }
-        fileConfiguration = YamlConfiguration.loadConfiguration(file);
-        if (javaPlugin !=null) {
-            if (javaPlugin.getResource(name + ".yml") != null) {
+        try{
+            fileConfiguration = YamlConfiguration.loadConfiguration(file);
+        }catch (Exception e){}
+        if(file.length() == 0){
+            if (javaPlugin.getResource(name + ".yml") != null){
                 Reader defConfigStream = new InputStreamReader(Objects.requireNonNull(javaPlugin.getResource(name + ".yml")), StandardCharsets.UTF_8);
                 YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
                 fileConfiguration.setDefaults(defConfig);
                 saveFileConfiguration();
+                saveWithOtherFileConfiguration(defConfig);
             }
         }
     }
@@ -260,6 +263,9 @@ public class Yaml {
     public boolean isDouble(String path) { return fileConfiguration.isDouble(path); }
     public double getDouble(String path) { return fileConfiguration.getDouble(path); }
     public double getDouble(String path, double def) { return fileConfiguration.getDouble(path, def); }
+    // Double
+    public boolean isList(String path) { return fileConfiguration.isList(path); }
+    public List<String> getList(String path) { return fileConfiguration.getStringList(path); }
 
     public ItemStack getItemStack(String path) {
         Material material = Material.getMaterial(getString(path + ".material"));

@@ -21,9 +21,8 @@ import club.spfmc.simplehomes.SimpleHomes;
 import club.spfmc.simplehomes.home.Home;
 import club.spfmc.simplehomes.util.task.Task;
 import club.spfmc.simplehomes.util.yaml.Yaml;
-import org.bukkit.Location;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -61,40 +60,86 @@ public class TeleportTask extends Task {
     public void actions() {
         if (player.isOnline() && TeleportTask.getTeleporting().contains(player.getName())) {
             if (player.hasPermission("simple.bypass.home.countdown")) {
+                countdown = 0;
                 teleport();
+                sendActions();
             } else {
-                Yaml settings = simpleHomes.getSettings();
                 if (countdown == 0) {
                     teleport();
-                    if (settings.contains("teleport.messages." + countdown)) {
-                        settings.sendMessage(player, "teleport.messages." + countdown, new String[][] {{"%seconds%", countdown + ""}});
-                    }
-                    if (settings.contains("teleport.sounds." + countdown)) {
-                        String sound = settings.getString("teleport.sounds." + countdown);
-                        try {
-                            player.playSound(player.getLocation(), Sound.valueOf(sound), 1, 1);
-                        } catch (IllegalArgumentException e) {
-                            simpleHomes.getLogger().info("The sound: " + sound + " no found in your server version.");
-                        }
-                    }
+                    sendActions();
                 } else {
-                    if (settings.contains("teleport.messages." + countdown)) {
-                        settings.sendMessage(player, "teleport.messages." + countdown, new String[][] {{"%seconds%", countdown + ""}});
-                    }
-                    if (settings.contains("teleport.sounds." + countdown)) {
-                        String sound = settings.getString("teleport.sounds." + countdown);
-                        try {
-                            player.playSound(player.getLocation(), Sound.valueOf(sound), 1, 1);
-                        } catch (IllegalArgumentException e) {
-                            simpleHomes.getLogger().info("The sound: " + sound + " no found in your server version.");
-                        }
-                    }
+                    sendActions();
                     countdown--;
                 }
             }
         } else {
             TeleportTask.teleporting.remove(player.getName());
             stopScheduler();
+        }
+    }
+
+    private void sendActions() {
+        Yaml settings = simpleHomes.getSettings();
+        if (settings.contains("teleport.messages." + countdown)) {
+            if (settings.isString("teleport.messages." + countdown) || settings.isList("teleport.messages." + countdown)) {
+                settings.sendMessage(player, "teleport.messages." + countdown, new String[][] {
+                        {"%seconds%", countdown + ""},
+                        {"%home_name%", home.getName()},
+                        {"%home_world%", home.getWorld()},
+                        {"%home_x%", Math.round(home.getX()) + ""},
+                        {"%home_y%", Math.round(home.getY()) + ""},
+                        {"%home_z%", Math.round(home.getZ()) + ""},
+                        {"%home_yaw%", Math.round(home.getYaw()) + ""},
+                        {"%home_pitch%", Math.round(home.getPitch()) + ""}
+                });
+            }
+        }
+        if (settings.contains("teleport.sounds." + countdown)) {
+            if (settings.isString("teleport.sounds." + countdown)) {
+                String sound = settings.getString("teleport.sounds." + countdown);
+                try {
+                    player.playSound(player.getLocation(), Sound.valueOf(sound), 1, 1);
+                } catch (IllegalArgumentException e) {
+                    simpleHomes.getLogger().info("The sound: " + sound + " no found in your server version.");
+                }
+            }
+        }
+        if (settings.contains("teleport.titles." + countdown)) {
+            String title = "";
+            String subTitle = "";
+            if (settings.contains("teleport.titles." + countdown+ ".title")) {
+                if (settings.isString("teleport.titles." + countdown+ ".title")) {
+                    title = settings.getString("teleport.titles." + countdown + ".title");
+                    title = title.replaceAll("%seconds%", countdown + "");
+                    title = title.replaceAll("%home_name%", home.getName());
+                    title = title.replaceAll("%home_world%", home.getWorld());
+                    title = title.replaceAll("%home_x%", Math.round(home.getX()) + "");
+                    title = title.replaceAll("%home_y%", Math.round(home.getY()) + "");
+                    title = title.replaceAll("%home_z%", Math.round(home.getZ()) + "");
+                    title = title.replaceAll("%home_yaw%", Math.round(home.getYaw()) + "");
+                    title = title.replaceAll("%home_pitch%", Math.round(home.getPitch()) + "");
+                }
+            }
+            if (settings.contains("teleport.titles." + countdown+ ".subTitle")) {
+                if (settings.isString("teleport.titles." + countdown+ ".subTitle")) {
+                    subTitle = settings.getString("teleport.titles." + countdown+ ".subTitle");
+                    subTitle = subTitle.replaceAll("%home_name%", home.getName());
+                    subTitle = subTitle.replaceAll("%home_world%", home.getWorld());
+                    subTitle = subTitle.replaceAll("%home_x%", Math.round(home.getX()) + "");
+                    subTitle = subTitle.replaceAll("%home_y%", Math.round(home.getY()) + "");
+                    subTitle = subTitle.replaceAll("%home_z%", Math.round(home.getZ()) + "");
+                    subTitle = subTitle.replaceAll("%home_yaw%", Math.round(home.getYaw()) + "");
+                    subTitle = subTitle.replaceAll("%home_pitch%", Math.round(home.getPitch()) + "");
+                    subTitle = subTitle.replaceAll("%seconds%", countdown + "");
+                }
+            }
+            if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+                title = PlaceholderAPI.setPlaceholders(player, title);
+                subTitle = PlaceholderAPI.setPlaceholders(player, subTitle);
+            }
+            title = ChatColor.translateAlternateColorCodes('&', title);
+            subTitle = ChatColor.translateAlternateColorCodes('&', subTitle);
+            player.sendTitle(title, subTitle);
         }
     }
 
@@ -109,7 +154,6 @@ public class TeleportTask extends Task {
             float pitch = home.getPitch();
             Location location = new Location(world, x, y, z, yaw, pitch);
             player.teleport(location);
-            messages.sendMessage(player, "home.teleported", new String[][] {{"%home%", home.getName()}});
         } else {
             messages.sendMessage(player, "home.invalidWorld", new String[][] {{"%world%", home.getWorld()}});
         }
