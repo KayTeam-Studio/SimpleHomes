@@ -24,6 +24,7 @@ import club.spfmc.simplehomes.listeners.PlayerMoveListener;
 import club.spfmc.simplehomes.listeners.PlayerQuitListener;
 import club.spfmc.simplehomes.placeholderapi.SimpleHomesExpansion;
 import club.spfmc.simplehomes.util.bStats.Metrics;
+import club.spfmc.simplehomes.util.input.InputManager;
 import club.spfmc.simplehomes.util.inventory.MenuInventoryManager;
 import club.spfmc.simplehomes.util.kayteam.KayTeam;
 import club.spfmc.simplehomes.util.updatechecker.UpdateChecker;
@@ -54,6 +55,12 @@ public class SimpleHomes extends JavaPlugin {
     private final MenuInventoryManager menuInventoryManager = new MenuInventoryManager();
     public MenuInventoryManager getMenuInventoryManager() {
         return menuInventoryManager;
+    }
+
+    // Input Manager
+    private final InputManager inputManager = new InputManager();
+    public InputManager getInputManager() {
+        return inputManager;
     }
 
     // Update Checker
@@ -102,6 +109,7 @@ public class SimpleHomes extends JavaPlugin {
         pluginManager.registerEvents(new PlayerQuitListener(this), this);
         pluginManager.registerEvents(new PlayerMoveListener(this), this);
         pluginManager.registerEvents(menuInventoryManager, this);
+        pluginManager.registerEvents(inputManager, this);
     }
 
     private void registerCommands() {

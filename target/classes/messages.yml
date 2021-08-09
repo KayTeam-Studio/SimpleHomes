@@ -8,6 +8,7 @@ setHome:
   overwritten: "%prefix% &fThe home &9%home%&f has been overwritten with a &9$%cost%&f of cost."
   insufficientSetMoney: "%prefix% &fInsufficient money to set a new home, you need: &9$%cost%&f."
   insufficientOverwrittenMoney: "%prefix% &fInsufficient money to overwrite a home, you need: &9$%cost%&f."
+  disabledWorld: "%prefix% &fSet home in the world &9%world_name%&f is disabled."
 deleteHome:
   isConsole: "%prefix% &fThis command is disabled in the console."
   noPermission: "%prefix% &fYou do not have permission."
@@ -23,6 +24,9 @@ home:
   invalidWorld: "%prefix% &fThe world &9%world% &fis invalid or no exist. &cCONTACT A ADMIN"
   cancelByMovement: "%prefix% &fTeleport cancel by move to other block."
   alreadyInTeleporting: "%prefix% &fAlready teleporting countdown."
+  disabledWorldFrom: "%prefix% &fTeleport is blocked in the world %world_name%"
+  disabledWorldTo: "%prefix% &fTeleport is blocked in the destiny world %world_name%"
+  insufficientMoney: "%prefix% &fInsufficient money to teleport to your home. You need &9$%amount%&f."
 homes:
   isConsole: "%prefix% &fThis command is disabled in the console."
   noPermission: "%prefix% &fYou do not have permission."
@@ -40,6 +44,27 @@ admin:
     - " &6/SimpleHomes &eversion &8- &fView the curren plugin version."
   reloaded: "%prefix% &fThe plugin &9%plugin%&f has been reloaded."
   version: "%prefix% &fVersion: &9%version%"
+  vault:
+    setHome:
+      enterAmount:
+        - "%prefix% &fEnter in the chat the new amount"
+        - "&fTo cancel press SHIFT"
+      invalidAmount: "%prefix% &fThe amount &9%amount%&f is invalid."
+    overwriteHome:
+      enterAmount:
+        - "%prefix% &fEnter in the chat the new amount"
+        - "&fTo cancel press SHIFT"
+      invalidAmount: "%prefix% &fThe amount &9%amount%&f is invalid."
+    deleteHome:
+      enterAmount:
+        - "%prefix% &fEnter in the chat the new amount"
+        - "&fTo cancel press SHIFT"
+      invalidAmount: "%prefix% &fThe amount &9%amount%&f is invalid."
+    teleport:
+      enterAmount:
+        - "%prefix% &fEnter in the chat the new amount"
+        - "&fTo cancel press SHIFT"
+      invalidAmount: "%prefix% &fThe amount &9%amount%&f is invalid."
 migrateHomes:
   isConsole: "%prefix% &fThis command is disabled in the console."
   noPermission: "%prefix% &fYou do not have permission."

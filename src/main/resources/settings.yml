@@ -23,9 +23,30 @@ teleport:
       title: "&6Teletansported completed"
       subTitle: "&fHome: &9%home_name%"
 vault:
+  enable: false
   setHome: 100.0 # Set Home Cost
   overwriteHome: 50.0 # Overwrite Home Cost
   deleteHome: 100.0 # Refund Amount For Delete Home
+  teleport: 100.0 # Cost of teleport to your home
+world:
+  # Disable the set home in specific worlds
+  disableSetHome:
+    enable: false
+    worlds:
+      - "world_nether"
+      - "world_the_end"
+  # Disable start teleport in current location world
+  disableTeleportFrom:
+    enable: false
+    worlds:
+      - "world_nether"
+      - "world_the_end"
+  # Disable the arrival of a teleportation on specific worlds
+  disableTeleportTo:
+    enable: false
+    worlds:
+      - "world_nether"
+      - "world_the_end"
 homes:
   default: 2
   vip: 5 # simple.max.homes.vip
@@ -96,3 +117,229 @@ inventory:
       close:
         material: "BARRIER"
         name: "&cClose Menu"
+  admin:
+    title: "SimpleHomes Management"
+    items:
+      panel:
+        material: STAINED_GLASS_PANE
+        data: 7
+      world:
+        material: PAPER
+        name: "&3World Settings"
+        lore:
+          - ""
+          - "&7Left Click to open World Settings"
+      vault:
+        material: PAPER
+        name: "&3Vault Settings"
+        lore:
+          - ""
+          - "&7Left Click to open Vault Settings"
+      reload:
+        material: REDSTONE_BLOCK
+        name: "&3Reload plugin"
+        lore:
+          - ""
+          - "&7Left Click to reload"
+      close:
+        material: BARRIER
+        name: "&cClose"
+  vault:
+    title: "Vault Menu"
+    status:
+      enable: "&aEnable"
+      disable: "&cDisable"
+    items:
+      panel:
+        material: STAINED_GLASS_PANE
+        data: 7
+      status:
+        material: CHEST
+        name: "&3Enable Vault"
+        lore:
+          - ""
+          - "&6Status&e: %status%"
+          - ""
+          - "&7Left Click to change"
+      setHome:
+        material: PAPER
+        name: "&3Set Home"
+        lore:
+          - ""
+          - "&6Money&e: %amount%"
+          - ""
+          - "&7Left Click to change"
+      overwriteHome:
+        material: PAPER
+        name: "&3Overwrite Home"
+        lore:
+          - ""
+          - "&6Money&e: %amount%"
+          - ""
+          - "&7Left Click to change"
+      deleteHome:
+        material: PAPER
+        name: "&3Delete Home"
+        lore:
+          - ""
+          - "&6Money&e: %amount%"
+          - ""
+          - "&fThis represents a refund"
+          - "&ffor removing a home"
+          - "&fThe established amount"
+          - "&fwill be added to your balance"
+          - ""
+          - "&7Left Click to change"
+      teleport:
+        material: PAPER
+        name: "&3Teleport"
+        lore:
+          - ""
+          - "&6Money&e: %amount%"
+          - ""
+          - "&7Left Click to change"
+      close:
+        material: BARRIER
+        name: "&cClose"
+  world:
+    title: "Disabled World Menu"
+    status:
+      enable: "&aEnabled"
+      disable: "&cDisabled"
+    items:
+      panel:
+        material: STAINED_GLASS_PANE
+        data: 7
+      setHome:
+        material: BED
+        name: "&3SetHome"
+        lore:
+          - ""
+          - "&6Enable&e: %status%"
+          - ""
+          - "&7Left Click to change status"
+          - "&7Right Click to manage worlds"
+      teleportFrom:
+        material: CHEST
+        name: "&3Teleport from"
+        lore:
+          - ""
+          - "&6Enable&e: %status%"
+          - ""
+          - "&7Left Click to change status"
+          - "&7Right Click to manage worlds"
+      teleportTo:
+        material: CHEST
+        name: "&3Teleport to"
+        lore:
+          - ""
+          - "&6Enable&e: %status%"
+          - ""
+          - "&7Left Click to change status"
+          - "&7Right Click to manage worlds"
+      close:
+        material: BARRIER
+        name: "&cClose"
+        lore:
+          - ""
+          - "&7Click to close"
+  worldSetHome:
+    title: "Disabled Set Home Worlds"
+    rows: 1
+    status:
+      enable: "&aEnabled"
+      disable: "&cDisabled"
+    items:
+      item:
+        material: PAPER
+        name: "%world_name%"
+        lore:
+          - ""
+          - "&6Status&e: %status%"
+      panel:
+        material: STAINED_GLASS_PANE
+        data: 7
+      information:
+        material: CHEST
+        name: "&3Information"
+        lore:
+          - ""
+          - "&fIf the world is activated,"
+          - "&fit means that homes cannot"
+          - "&fbe established in it."
+      next:
+        material: ARROW
+        name: "&aNext Page"
+      previous:
+        material: ARROW
+        name: "&aPrevious Page"
+      close:
+        material: BARRIER
+        name: "&cClose"
+  worldTeleportFrom:
+    title: "Disabled Teleport From Worlds"
+    rows: 1
+    status:
+      enable: "&aEnabled"
+      disable: "&cDisabled"
+    items:
+      item:
+        material: PAPER
+        name: "%world_name%"
+        lore:
+          - ""
+          - "&6Status&e: %status%"
+      panel:
+        material: STAINED_GLASS_PANE
+        data: 7
+      information:
+        material: CHEST
+        name: "&3Information"
+        lore:
+          - ""
+          - "&fIf the world is activated,"
+          - "&fit means that a teleportation"
+          - "&fcannot be started"
+          - "&fby teleportation from home."
+      next:
+        material: ARROW
+        name: "&aNext Page"
+      previous:
+        material: ARROW
+        name: "&aPrevious Page"
+      close:
+        material: BARRIER
+        name: "&cClose"
+  worldTeleportTo:
+    title: "Disabled Teleport To Worlds"
+    rows: 1
+    status:
+      enable: "&aEnabled"
+      disable: "&cDisabled"
+    items:
+      item:
+        material: PAPER
+        name: "%world_name%"
+        lore:
+          - ""
+          - "&6Status&e: %status%"
+      panel:
+        material: STAINED_GLASS_PANE
+        data: 7
+      information:
+        material: CHEST
+        name: "&3Information"
+        lore:
+          - ""
+          - "&fIf the world is activated,"
+          - "&fit means that it cannot be reached"
+          - "&fby teleportation from home."
+      next:
+        material: ARROW
+        name: "&aNext Page"
+      previous:
+        material: ARROW
+        name: "&aPrevious Page"
+      close:
+        material: BARRIER
+        name: "&cClose"

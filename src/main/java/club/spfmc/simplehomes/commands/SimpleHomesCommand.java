@@ -18,6 +18,8 @@
 package club.spfmc.simplehomes.commands;
 
 import club.spfmc.simplehomes.SimpleHomes;
+import club.spfmc.simplehomes.inventories.SimpleHomesInventory;
+import club.spfmc.simplehomes.inventories.WorldInventory;
 import club.spfmc.simplehomes.util.command.SimpleCommand;
 import club.spfmc.simplehomes.util.updatechecker.UpdateChecker;
 import club.spfmc.simplehomes.util.yaml.Yaml;
@@ -43,6 +45,9 @@ public class SimpleHomesCommand extends SimpleCommand {
         if (player.hasPermission("simple.admin.homes")) {
             if (arguments.length > 0) {
                 switch (arguments[0].toLowerCase()) {
+                    case "gui":
+                        simpleHomes.getMenuInventoryManager().openInventory(player, new SimpleHomesInventory(simpleHomes));
+                        break;
                     case "reload":
                         // Files
                         simpleHomes.getSettings().reloadFileConfiguration();
@@ -78,7 +83,7 @@ public class SimpleHomesCommand extends SimpleCommand {
                         });
                 }
             } else {
-                messages.sendMessage(player, "admin.emptyOption");
+                simpleHomes.getMenuInventoryManager().openInventory(player, new SimpleHomesInventory(simpleHomes));
             }
         } else {
             messages.sendMessage(player, "admin.noPermission");
@@ -90,6 +95,7 @@ public class SimpleHomesCommand extends SimpleCommand {
         List<String> options = new ArrayList<>();
         if (arguments.length == 1) {
             if (player.hasPermission("simple.home")) {
+                options.add("gui");
                 options.add("reload");
                 options.add("version");
                 options.add("help");

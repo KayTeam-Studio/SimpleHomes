@@ -169,6 +169,7 @@ public abstract class PagesInventory extends MenuInventory {
             @Override
             public void onLeftClick(Player player) {
                 player.closeInventory();
+                onClose(player);
             }
         });
         // Next
@@ -258,5 +259,57 @@ public abstract class PagesInventory extends MenuInventory {
     public void onMiddleClick(Player player, Object object) {}
     public void onShiftLeftClick(Player player, Object object) {}
     public void onShiftRightClick(Player player, Object object) {}
+    public void onClose(Player player) {};
+
+    public void update(Player player) {
+        int slots = (getRows()) * 9;
+        for (int index = 9; index < slots - 9; index++) {
+            int realIndex = ((page * (rows * 9)) - (rows * 9)) + (index - 8);
+            int listIndex = realIndex - 1;
+            if (list.size() > listIndex) {
+                int finalIndex = index;
+                addMenuAction(index, new Item() {
+                    @Override
+                    public ItemStack getItem() {
+                        return getListedItem(list.get(listIndex));
+                    }
+
+                    @Override
+                    public void onLeftClick(Player player) {
+                        PagesInventory.this.onLeftClick(player, list.get(listIndex));
+                    }
+
+                    @Override
+                    public void onShiftLeftClick(Player player) {
+                        PagesInventory.this.onShiftLeftClick(player, list.get(listIndex));
+                    }
+
+                    @Override
+                    public void onMiddleClick(Player player) {
+                        PagesInventory.this.onMiddleClick(player, list.get(listIndex));
+                    }
+
+                    @Override
+                    public void onRightClick(Player player) {
+                        PagesInventory.this.onRightClick(player, list.get(listIndex));
+                    }
+
+                    @Override
+                    public void onShiftRightClick(Player player) {
+                        PagesInventory.this.onShiftRightClick(player, list.get(listIndex));
+                    }
+
+                });
+                player.getOpenInventory().setItem(index, getItems().get(index).getItem());
+            } else {
+                addMenuAction(index, new Item() {
+                    @Override
+                    public ItemStack getItem() {
+                        return getListedItem(null);
+                    }
+                });
+            }
+        }
+    }
 
 }

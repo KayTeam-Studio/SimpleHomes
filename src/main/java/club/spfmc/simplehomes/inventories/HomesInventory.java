@@ -22,6 +22,8 @@ import club.spfmc.simplehomes.home.Home;
 import club.spfmc.simplehomes.tasks.TeleportTask;
 import club.spfmc.simplehomes.util.inventory.inventories.PagesInventory;
 import club.spfmc.simplehomes.util.yaml.Yaml;
+import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -91,12 +93,59 @@ public class HomesInventory extends PagesInventory {
     @Override
     public void onLeftClick(Player player, Object object) {
         player.closeInventory();
+        Yaml messages = simpleHomes.getMessages();
+        Yaml settings = simpleHomes.getSettings();
+        if (settings.getBoolean("world.disableTeleportFrom.enable") && !player.hasPermission("simple.bypass.disabled.worlds")) {
+            List<String> worlds = settings.getStringList("world.disableTeleportFrom.worlds", new ArrayList<>());
+            Location location = player.getLocation();
+            if (worlds.contains(location.getWorld().getName())) {
+                messages.sendMessage(player, "home.disabledWorldFrom", new String[][] {
+                        {"%world_name%", location.getWorld().getName()},
+                        {"%world_x%", Math.round(location.getX()) + ""},
+                        {"%world_y%", Math.round(location.getY()) + ""},
+                        {"%world_z%", Math.round(location.getZ()) + ""},
+                        {"%world_yaw%", Math.round(location.getYaw()) + ""},
+                        {"%world_pitch%", Math.round(location.getPitch()) + ""}
+                });
+                return;
+            }
+        }
         if (!TeleportTask.getTeleporting().contains(player.getName())) {
             Home home = (Home) object;
+            if (settings.getBoolean("world.disableTeleportTo.enable") && !player.hasPermission("simple.bypass.disabled.worlds")) {
+                List<String> worlds = settings.getStringList("world.disableTeleportTo.worlds", new ArrayList<>());
+                if (worlds.contains(home.getWorld())) {
+                    messages.sendMessage(player, "home.disabledWorldTo", new String[][] {
+                            {"%home_name%", home.getName()},
+                            {"%world_name%", home.getWorld()},
+                            {"%world_x%", Math.round(home.getX()) + ""},
+                            {"%world_y%", Math.round(home.getY()) + ""},
+                            {"%world_z%", Math.round(home.getZ()) + ""},
+                            {"%world_yaw%", Math.round(home.getYaw()) + ""},
+                            {"%world_pitch%", Math.round(home.getPitch()) + ""}
+                    });
+                    return;
+                }
+            }
+            if (settings.getBoolean("vault.enable")) {
+                Economy economy = SimpleHomes.getEconomy();
+                if (economy != null) {
+                    double amount = settings.getDouble("vault.teleport");
+                    if (economy.has(player, amount) || player.hasPermission("simple.bypass.home.cost")) {
+                        if (!player.hasPermission("simple.bypass.home.cost")) {
+                            economy.withdrawPlayer(player, amount);
+                        }
+                    } else {
+                        messages.sendMessage(player, "home.insufficientMoney", new String[][] {
+                                {"%amount%", Math.round(amount) + ""}
+                        });
+                        return;
+                    }
+                }
+            }
             TeleportTask teleportTask = new TeleportTask(simpleHomes, player, home);
             teleportTask.startScheduler();
         } else {
-            Yaml messages = simpleHomes.getMessages();
             messages.sendMessage(player, "home.alreadyInTeleporting");
         }
     }

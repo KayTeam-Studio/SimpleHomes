@@ -54,12 +54,12 @@ public class Yaml {
 
     public Yaml(JavaPlugin javaPlugin, String dir, String name) {
         this.javaPlugin = javaPlugin;
-        this.dir = javaPlugin.getDataFolder().getPath() + File.separator + dir.replaceAll("\\/", File.separator);
+        this.dir = javaPlugin.getDataFolder().getPath() + File.separator + dir;
         this.name = name;
     }
 
     public Yaml(String dir, String name) {
-        this.dir = dir.replaceAll("\\/", File.separator);
+        this.dir = dir;
         this.name = name;
     }
 
@@ -107,6 +107,9 @@ public class Yaml {
                 fileConfiguration.setDefaults(defConfig);
                 saveFileConfiguration();
                 saveWithOtherFileConfiguration(defConfig);
+                try{
+                    fileConfiguration = YamlConfiguration.loadConfiguration(file);
+                }catch (Exception e){}
             }
         }
     }
@@ -259,6 +262,15 @@ public class Yaml {
     public boolean isString(String path) { return fileConfiguration.isString(path); }
     public String getString(String path) { return fileConfiguration.getString(path); }
     public String getString(String path, String def) { return fileConfiguration.getString(path, def); }
+    // StringList
+    public List<String> getStringList(String path) { return fileConfiguration.getStringList(path); }
+    public List<String> getStringList(String path, List<String> def) {
+        if (contains(path)) {
+            return fileConfiguration.getStringList(path);
+        } else {
+            return def;
+        }
+    }
     // Double
     public boolean isDouble(String path) { return fileConfiguration.isDouble(path); }
     public double getDouble(String path) { return fileConfiguration.getDouble(path); }

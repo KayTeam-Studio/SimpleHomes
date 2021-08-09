@@ -1,6 +1,6 @@
 main: club.spfmc.simplehomes.SimpleHomes
 name: SimpleHomes
-version: 1.8
+version: 1.9
 author: SirOswaldo
 website: "https://www.kayteam.org"
 softdepend:
@@ -38,6 +38,8 @@ permissions:
     description: Bypass movement teleport
   simple.bypass.home.cost:
     description: Bypass home cost
+  simple.bypass.home.disabled.worlds:
+    description: Bypass disabled worlds
   simple.notify.update:
     description: Notify to plugin update
   simple.migrate.homes:
