@@ -56,11 +56,10 @@ inventory:
     title: "Do you want to erase your home?"
     items:
       panel:
-        material: "STAINED_GLASS_PANE"
-        data: 1
+        material: "ORANGE_STAINED_GLASS_PANE"
         name: "&7"
       information:
-        material: "BED"
+        material: "RED_BED"
         name: "&6%name%"
         lore:
           - "&7"
@@ -72,20 +71,17 @@ inventory:
           - "&6PITCH &e%pitch%"
           - "&7"
       accept:
-        material: "WOOL"
-        data: 5
+        material: "LIME_WOOL"
         name: "&aAccept"
       cancel:
-        material: "WOOL"
-        data: 14
+        material: "RED_WOOL"
         name: "&cCancel"
   homes:
     rows: 3
     title: "Homes Inventory"
     items:
       panel:
-        material: "STAINED_GLASS_PANE"
-        data: 1
+        material: "ORANGE_STAINED_GLASS_PANE"
         name: "&7"
       information:
         material: "PAPER"
@@ -121,8 +117,7 @@ inventory:
     title: "SimpleHomes Management"
     items:
       panel:
-        material: STAINED_GLASS_PANE
-        data: 7
+        material: "ORANGE_STAINED_GLASS_PANE"
       world:
         material: PAPER
         name: "&3World Settings"
@@ -151,8 +146,7 @@ inventory:
       disable: "&cDisable"
     items:
       panel:
-        material: STAINED_GLASS_PANE
-        data: 7
+        material: "ORANGE_STAINED_GLASS_PANE"
       status:
         material: CHEST
         name: "&3Enable Vault"
@@ -208,8 +202,7 @@ inventory:
       disable: "&cDisabled"
     items:
       panel:
-        material: STAINED_GLASS_PANE
-        data: 7
+        material: "ORANGE_STAINED_GLASS_PANE"
       setHome:
         material: BED
         name: "&3SetHome"
@@ -257,8 +250,7 @@ inventory:
           - ""
           - "&6Status&e: %status%"
       panel:
-        material: STAINED_GLASS_PANE
-        data: 7
+        material: "ORANGE_STAINED_GLASS_PANE"
       information:
         material: CHEST
         name: "&3Information"
@@ -290,8 +282,7 @@ inventory:
           - ""
           - "&6Status&e: %status%"
       panel:
-        material: STAINED_GLASS_PANE
-        data: 7
+        material: "ORANGE_STAINED_GLASS_PANE"
       information:
         material: CHEST
         name: "&3Information"
@@ -324,8 +315,7 @@ inventory:
           - ""
           - "&6Status&e: %status%"
       panel:
-        material: STAINED_GLASS_PANE
-        data: 7
+        material: "ORANGE_STAINED_GLASS_PANE"
       information:
         material: CHEST
         name: "&3Information"
