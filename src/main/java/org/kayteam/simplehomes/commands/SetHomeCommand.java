@@ -17,6 +17,7 @@
 
 package org.kayteam.simplehomes.commands;
 
+import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.kayteam.kayteamapi.command.SimpleCommand;
 import org.kayteam.kayteamapi.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
@@ -51,6 +52,23 @@ public class SetHomeCommand extends SimpleCommand {
                 for (Integer key:homesManager.getMaxHomes().keySet()) {
                     String name = homesManager.getMaxHomes().get(key);
                     if (name.equals("default") || player.hasPermission("simple.max.homes." + name)) maxHomes = key;
+                }
+                for (PermissionAttachmentInfo permission:player.getEffectivePermissions())
+                {
+                    if (permission.getPermission().startsWith("simple.max.homes."))
+                    {
+                        String numberString = permission.getPermission().split("\\.")[3];
+                        try {
+                            int a = Integer.parseInt(numberString);
+                            if (a > maxHomes)
+                            {
+                                maxHomes = a;
+                            }
+                        } catch (NumberFormatException ignored)
+                        {
+                            // Nothing
+                        }
+                    }
                 }
                 if (settings.getBoolean("world.disableSetHome.enable") && !player.hasPermission("simple.bypass.disabled.worlds")) {
                     List<String> worlds = settings.getStringList("world.disableSetHome.worlds");

@@ -17,6 +17,7 @@
 
 package org.kayteam.simplehomes.placeholderapi;
 
+import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.home.Home;
 import org.kayteam.simplehomes.home.Homes;
@@ -47,7 +48,7 @@ public class SimpleHomesExpansion extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return "1.0";
+        return "1.1";
     }
 
     // List of Placeholders
@@ -70,6 +71,23 @@ public class SimpleHomesExpansion extends PlaceholderExpansion {
                 String name = homesManager.getMaxHomes().get(key);
                 if (name.equals("default") || Objects.requireNonNull(player.getPlayer()).hasPermission("simple.max.homes." + name) ) {
                     maxHomes = key;
+                }
+            }
+            for (PermissionAttachmentInfo permission: Objects.requireNonNull(player.getPlayer()).getEffectivePermissions())
+            {
+                if (permission.getPermission().startsWith("simple.max.homes."))
+                {
+                    String numberString = permission.getPermission().split("\\.")[3];
+                    try {
+                        int a = Integer.parseInt(numberString);
+                        if (a > maxHomes)
+                        {
+                            maxHomes = a;
+                        }
+                    } catch (NumberFormatException ignored)
+                    {
+                        // Nothing
+                    }
                 }
             }
             return maxHomes + "";

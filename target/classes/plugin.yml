@@ -1,11 +1,10 @@
-main: club.spfmc.simplehomes.SimpleHomes
+main: org.kayteam.simplehomes.SimpleHomes
 name: SimpleHomes
-version: 1.9
+version: '2.2'
 author: SirOswaldo
-website: "https://www.kayteam.org"
-softdepend:
-  - PlaceholderAPI
-  - Vault
+website: https://www.kayteam.org
+api-version: 1.13
+softdepend: [ PlaceholderAPI, Vault ]
 commands:
   SetHome:
     description: Set a home
@@ -19,6 +18,8 @@ commands:
     description: Manage this plugin
   MigrateHomes:
     description: Migrate homes from others plugins.
+  PermissionCommand:
+    description: Prueba
 permissions:
   simple.admin.homes:
     description: Manage this plugin
