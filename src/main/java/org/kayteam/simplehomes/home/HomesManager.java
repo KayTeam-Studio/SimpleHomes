@@ -17,7 +17,7 @@
 
 package org.kayteam.simplehomes.home;
 
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

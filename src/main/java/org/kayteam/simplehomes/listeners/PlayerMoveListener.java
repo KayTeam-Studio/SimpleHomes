@@ -17,7 +17,7 @@
 
 package org.kayteam.simplehomes.listeners;
 
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.tasks.TeleportTask;
 import org.bukkit.Location;

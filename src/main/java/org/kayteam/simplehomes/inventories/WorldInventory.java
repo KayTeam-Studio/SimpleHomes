@@ -17,11 +17,9 @@
 
 package org.kayteam.simplehomes.inventories;
 
-import org.kayteam.kayteamapi.inventory.InventoryBuilder;
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.inventory.InventoryBuilder;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
-
-import java.util.ArrayList;
 
 public class WorldInventory extends InventoryBuilder {
 

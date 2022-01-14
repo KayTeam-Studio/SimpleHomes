@@ -17,8 +17,8 @@
 
 package org.kayteam.simplehomes.inventories;
 
-import org.kayteam.kayteamapi.inventory.InventoryBuilder;
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.inventory.InventoryBuilder;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.home.Home;
 import org.kayteam.simplehomes.home.Homes;
@@ -71,10 +71,14 @@ public class DeleteHomeConfirmInventory extends InventoryBuilder {
             homes.removeHome(home.getName());
             if (player.getName().equals(home.getOwner())) {
                 if (SimpleHomes.getEconomy() != null) {
-
-                    messages.sendMessage(player,  "deleteHome.delete", new String[][]{{"%home%", name}, {"%cost%", simpleHomes.getSettings().getDouble("vault.deleteHome", 0.0) + ""}});
+                    messages.sendMessage(player,  "deleteHome.delete", new String[][]{
+                            {"%home%", name},
+                            {"%cost%", simpleHomes.getSettings().getDouble("vault.deleteHome", 0.0) + ""}});
                 } else {
-                    messages.sendMessage(player,  "deleteHome.delete", new String[][]{{"%home%", name}});
+                    messages.sendMessage(player,  "deleteHome.delete", new String[][]{
+                            {"%home%", name},
+                            {"%cost%", "0.0"}
+                    });
                 }
             } else {
                 messages.sendMessage(player, "deleteHome.deleteOther", new String[][] {

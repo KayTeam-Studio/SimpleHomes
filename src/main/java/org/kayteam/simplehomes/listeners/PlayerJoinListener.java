@@ -17,7 +17,7 @@
 
 package org.kayteam.simplehomes.listeners;
 
-import org.kayteam.kayteamapi.updatechecker.UpdateChecker;
+import org.kayteam.api.updatechecker.UpdateChecker;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.home.HomesManager;
 import org.bukkit.entity.Player;

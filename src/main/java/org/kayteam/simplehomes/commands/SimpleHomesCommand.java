@@ -17,9 +17,9 @@
 
 package org.kayteam.simplehomes.commands;
 
-import org.kayteam.kayteamapi.command.SimpleCommand;
-import org.kayteam.kayteamapi.updatechecker.UpdateChecker;
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.command.SimpleCommand;
+import org.kayteam.api.updatechecker.UpdateChecker;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.inventories.SimpleHomesInventory;
 import org.bukkit.command.ConsoleCommandSender;

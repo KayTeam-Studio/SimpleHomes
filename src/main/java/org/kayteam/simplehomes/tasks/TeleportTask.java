@@ -17,10 +17,9 @@
 
 package org.kayteam.simplehomes.tasks;
 
-import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XSound;
-import org.kayteam.kayteamapi.scheduler.Task;
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.scheduler.Task;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.home.Home;
 import me.clip.placeholderapi.PlaceholderAPI;

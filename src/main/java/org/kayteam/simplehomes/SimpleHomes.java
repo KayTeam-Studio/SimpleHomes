@@ -17,12 +17,12 @@
 
 package org.kayteam.simplehomes;
 
-import org.kayteam.kayteamapi.BrandSender;
-import org.kayteam.kayteamapi.bStats.Metrics;
-import org.kayteam.kayteamapi.input.InputManager;
-import org.kayteam.kayteamapi.inventory.InventoryManager;
-import org.kayteam.kayteamapi.updatechecker.UpdateChecker;
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.BrandSender;
+import org.kayteam.api.bStats.Metrics;
+import org.kayteam.api.input.InputManager;
+import org.kayteam.api.inventory.InventoryManager;
+import org.kayteam.api.updatechecker.UpdateChecker;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.commands.*;
 import org.kayteam.simplehomes.home.HomesManager;
 import org.kayteam.simplehomes.listeners.PlayerJoinListener;

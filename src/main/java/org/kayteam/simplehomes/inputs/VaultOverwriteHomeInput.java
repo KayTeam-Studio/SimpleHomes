@@ -17,8 +17,8 @@
 
 package org.kayteam.simplehomes.inputs;
 
-import org.kayteam.kayteamapi.input.inputs.ChatInput;
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.input.inputs.ChatInput;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.inventories.VaultInventory;
 import org.bukkit.Bukkit;

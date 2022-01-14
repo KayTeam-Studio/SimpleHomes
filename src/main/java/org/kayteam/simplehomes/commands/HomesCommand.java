@@ -17,8 +17,8 @@
 
 package org.kayteam.simplehomes.commands;
 
-import org.kayteam.kayteamapi.command.SimpleCommand;
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.command.SimpleCommand;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.home.Homes;
 import org.kayteam.simplehomes.home.HomesManager;

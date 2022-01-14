@@ -17,8 +17,8 @@
 
 package org.kayteam.simplehomes.inventories;
 
-import org.kayteam.kayteamapi.inventory.InventoryBuilder;
-import org.kayteam.kayteamapi.yaml.Yaml;
+import org.kayteam.api.inventory.InventoryBuilder;
+import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.inputs.VaultDeleteHomeInput;
 import org.kayteam.simplehomes.inputs.VaultOverwriteHomeInput;
