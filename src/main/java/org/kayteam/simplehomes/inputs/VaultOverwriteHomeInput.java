@@ -41,7 +41,7 @@ public class VaultOverwriteHomeInput implements ChatInput {
                 Yaml settings = simpleHomes.getSettings();
                 settings.set("vault.overwriteHome", amount);
                 settings.saveFileConfiguration();
-                Bukkit.getScheduler().runTaskLater(simpleHomes, () -> simpleHomes.getInventoryManager().openInventory(player, new VaultInventory(simpleHomes)), 1);
+                Bukkit.getScheduler().runTaskLater(simpleHomes, () -> simpleHomes.getInventoryManager().openInventory(player, new VaultInventory(simpleHomes, player)), 1);
                 return true;
             } else {
                 messages.sendMessage(player, "admin.vault.overwriteHome.invalidAmount", new String[][] {{"%amount%", input}});
@@ -55,7 +55,7 @@ public class VaultOverwriteHomeInput implements ChatInput {
 
     @Override
     public void onPlayerSneak(Player player) {
-        simpleHomes.getInventoryManager().openInventory(player, new VaultInventory(simpleHomes));
+        simpleHomes.getInventoryManager().openInventory(player, new VaultInventory(simpleHomes, player));
     }
 
 }

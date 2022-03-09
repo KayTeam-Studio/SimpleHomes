@@ -48,7 +48,7 @@ public class DeleteHomeCommand extends SimpleCommand {
                 Homes homes = homesManager.getHomes(player.getName());
                 if (homes.containHome(arguments[0])) {
                     Home home = homes.getHome(arguments[0]);
-                    simpleHomes.getInventoryManager().openInventory(player, new DeleteHomeConfirmInventory(simpleHomes, home, "cmd"));
+                    simpleHomes.getInventoryManager().openInventory(player, new DeleteHomeConfirmInventory(simpleHomes, home, "cmd", player));
                 } else {
                     messages.sendMessage(player, "deleteHome.invalidHome", new String[][] {{"%home%", arguments[0]}});
                 }

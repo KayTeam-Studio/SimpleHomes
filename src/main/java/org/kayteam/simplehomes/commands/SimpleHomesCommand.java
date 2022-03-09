@@ -44,7 +44,7 @@ public class SimpleHomesCommand extends SimpleCommand {
             if (arguments.length > 0) {
                 switch (arguments[0].toLowerCase()) {
                     case "gui":
-                        simpleHomes.getInventoryManager().openInventory(player, new SimpleHomesInventory(simpleHomes));
+                        simpleHomes.getInventoryManager().openInventory(player, new SimpleHomesInventory(simpleHomes, player));
                         break;
                     case "reload":
                         simpleHomes.onReload();
@@ -67,7 +67,7 @@ public class SimpleHomesCommand extends SimpleCommand {
                         });
                 }
             } else {
-                simpleHomes.getInventoryManager().openInventory(player, new SimpleHomesInventory(simpleHomes));
+                simpleHomes.getInventoryManager().openInventory(player, new SimpleHomesInventory(simpleHomes, player));
             }
         } else {
             messages.sendMessage(player, "admin.noPermission");

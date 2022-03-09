@@ -5,6 +5,7 @@ org\kayteam\simplehomes\commands\HomesCommand.class
 org\kayteam\simplehomes\inventories\WorldSetHomeInventory.class
 org\kayteam\simplehomes\listeners\PlayerQuitListener.class
 org\kayteam\simplehomes\SimpleHomes.class
+org\kayteam\simplehomes\inventories\EditHomeInventory.class
 org\kayteam\simplehomes\commands\DeleteHomeCommand.class
 org\kayteam\simplehomes\inventories\HomesInventory.class
 org\kayteam\simplehomes\inventories\WorldTeleportTo.class
@@ -13,6 +14,7 @@ org\kayteam\simplehomes\inventories\WorldTeleportFrom.class
 org\kayteam\simplehomes\placeholderapi\SimpleHomesExpansion.class
 org\kayteam\simplehomes\inputs\VaultOverwriteHomeInput.class
 org\kayteam\simplehomes\inputs\VaultTeleportInput.class
+org\kayteam\simplehomes\util\inventory\SimpleInventoryBuilder.class
 org\kayteam\simplehomes\inventories\VaultInventory.class
 org\kayteam\simplehomes\inventories\WorldInventory.class
 org\kayteam\simplehomes\inputs\VaultSetHomeInput.class

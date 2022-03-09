@@ -19,23 +19,51 @@ package org.kayteam.simplehomes.home;
 
 public class Home {
 
+    // Basic information
     private final String owner;
     private final String name;
+    private boolean isPublic = false;
+    private double cost = 0.0;
+
+    // Preview information
+    private String displayName;
+
+    // Home information
     private String world;
     private double x, y, z;
     private float yaw, pitch;
 
+
     public Home(String owner, String name) {
         this.owner = owner;
         this.name = name;
+        displayName = "&6" + name;
     }
 
     public String getOwner() {
         return owner;
     }
-
     public String getName() {
         return name;
+    }
+    public boolean isPublic() {
+        return isPublic;
+    }
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+    public double getCost() {
+        return cost;
+    }
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     public String getWorld() {
@@ -44,40 +72,34 @@ public class Home {
     public void setWorld(String world) {
         this.world = world;
     }
-
     public double getX() {
         return x;
     }
     public void setX(double x) {
         this.x = x;
     }
-
     public double getY() {
         return y;
     }
     public void setY(double y) {
         this.y = y;
     }
-
     public double getZ() {
         return z;
     }
     public void setZ(double z) {
         this.z = z;
     }
-
     public float getYaw() {
         return yaw;
     }
     public void setYaw(float yaw) {
         this.yaw = yaw;
     }
-
     public float getPitch() {
         return pitch;
     }
     public void setPitch(float pitch) {
         this.pitch = pitch;
     }
-
 }

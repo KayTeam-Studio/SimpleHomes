@@ -41,7 +41,7 @@ public class VaultTeleportInput implements ChatInput {
                 Yaml settings = simpleHomes.getSettings();
                 settings.set("vault.teleport", amount);
                 settings.saveFileConfiguration();
-                Bukkit.getScheduler().runTaskLater(simpleHomes, () -> simpleHomes.getInventoryManager().openInventory(player, new VaultInventory(simpleHomes)), 1);
+                Bukkit.getScheduler().runTaskLater(simpleHomes, () -> simpleHomes.getInventoryManager().openInventory(player, new VaultInventory(simpleHomes, player)), 1);
                 return true;
             } else {
                 messages.sendMessage(player, "admin.vault.teleport.invalidAmount", new String[][] {{"%amount%", input}});
@@ -55,7 +55,7 @@ public class VaultTeleportInput implements ChatInput {
 
     @Override
     public void onPlayerSneak(Player player) {
-        simpleHomes.getInventoryManager().openInventory(player, new VaultInventory(simpleHomes));
+        simpleHomes.getInventoryManager().openInventory(player, new VaultInventory(simpleHomes, player));
     }
 
 }

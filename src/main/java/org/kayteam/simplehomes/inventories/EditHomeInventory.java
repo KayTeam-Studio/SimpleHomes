@@ -19,19 +19,23 @@ package org.kayteam.simplehomes.inventories;
 
 import org.bukkit.entity.Player;
 import org.kayteam.simplehomes.SimpleHomes;
+import org.kayteam.simplehomes.home.Home;
+import org.kayteam.simplehomes.home.Homes;
 import org.kayteam.simplehomes.util.inventory.SimpleInventoryBuilder;
 
-public class SimpleHomesInventory extends SimpleInventoryBuilder {
+public class EditHomeInventory extends SimpleInventoryBuilder {
 
     private final SimpleHomes simpleHomes;
 
-    public SimpleHomesInventory(SimpleHomes simpleHomes, Player player) {
-        super(simpleHomes.getSettings(), "inventory.admin", "cmd", player);
+    public EditHomeInventory(SimpleHomes simpleHomes, Home home, String from, Player player) {
+        super(simpleHomes.getSettings(), "inventory.homeEditor", from, player);
         this.simpleHomes = simpleHomes;
     }
 
     @Override
-    public void openLastInventory() { }
+    public void openLastInventory() {
+
+    }
 
     @Override
     public String[][] getReplacements() {
@@ -40,25 +44,16 @@ public class SimpleHomesInventory extends SimpleInventoryBuilder {
 
     @Override
     public void prosesAction(String action, Player player) {
-        switch (action) {
-            case "[close]": {
+        if (action.startsWith("[close]")) {
+            player.closeInventory();
+        } else if (action.startsWith("[return]")) {
+            if (getFrom().equals("gui")) {
+                Homes homes = simpleHomes.getHomesManager().getHomes(player.getName());
+                simpleHomes.getInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes, 1));
+            } else {
                 player.closeInventory();
-                break;
-            }
-            case "[world-settings]": {
-                simpleHomes.getInventoryManager().openInventory(player, new WorldInventory(simpleHomes, player));
-                break;
-            }
-            case "[vault-settings]": {
-                simpleHomes.getInventoryManager().openInventory(player, new VaultInventory(simpleHomes, player));
-                break;
-            }
-            case "[reload]": {
-                player.closeInventory();
-                simpleHomes.onReload();
-                simpleHomes.getMessages().sendMessage(player, "admin.reloaded", new String[][] {{"%plugin%", simpleHomes.getDescription().getName()}});
-                break;
             }
         }
     }
+
 }

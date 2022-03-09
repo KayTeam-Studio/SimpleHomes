@@ -6,7 +6,7 @@
 
     <groupId>org.kayteam</groupId>
     <artifactId>SimpleHomes</artifactId>
-    <version>2.3</version>
+    <version>2.7</version>
     <packaging>jar</packaging>
 
     <name>SimpleHomes</name>
@@ -89,7 +89,7 @@
             <groupId>com.github.KayTeam-Studio</groupId>
             <artifactId>KayTeamAPI</artifactId>
             <version>v1.2.6</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <!-- Vault -->
         <dependency>

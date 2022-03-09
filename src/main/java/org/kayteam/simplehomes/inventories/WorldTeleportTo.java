@@ -76,7 +76,7 @@ public class WorldTeleportTo extends InventoryBuilder {
         }
         // Close
         addItem(((rows + 2) * 9) - 5, () -> settings.getItemStack("inventory.worldTeleportTo.items.close"));
-        addLeftAction(((rows + 2) * 9) - 5, (player, slot) -> simpleHomes.getInventoryManager().openInventory(player, new WorldInventory(simpleHomes)));
+        addLeftAction(((rows + 2) * 9) - 5, (player, slot) -> simpleHomes.getInventoryManager().openInventory(player, new WorldInventory(simpleHomes, player)));
         // Next
         if (worlds.size() > (page * (4 * 9))) {
             addItem(((rows + 2) * 9) - 1, () -> settings.getItemStack("inventory.worldTeleportTo.items.next"));

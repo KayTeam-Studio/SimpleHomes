@@ -17,82 +17,86 @@
 
 package org.kayteam.simplehomes.inventories;
 
-import org.kayteam.api.inventory.InventoryBuilder;
-import org.kayteam.api.yaml.Yaml;
+import org.bukkit.entity.Player;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.inputs.VaultDeleteHomeInput;
 import org.kayteam.simplehomes.inputs.VaultOverwriteHomeInput;
 import org.kayteam.simplehomes.inputs.VaultSetHomeInput;
 import org.kayteam.simplehomes.inputs.VaultTeleportInput;
+import org.kayteam.simplehomes.util.inventory.SimpleInventoryBuilder;
 
-public class VaultInventory extends InventoryBuilder {
+public class VaultInventory extends SimpleInventoryBuilder {
 
-    public VaultInventory(SimpleHomes simpleHomes) {
-        super(simpleHomes.getSettings().getString("inventory.vault.title"), 5);
-        Yaml settings = simpleHomes.getSettings();
-        Yaml messages = simpleHomes.getMessages();
-        // Panel
-        fillItem(() -> settings.getItemStack("inventory.vault.items.panel"));
-        // SetHome
-        addItem(10, () -> {
-            double amount = settings.getDouble("vault.setHome", 0.0);
-            return Yaml.replace(settings.getItemStack("inventory.vault.items.setHome"), new String[][] {{"%amount%", Math.round(amount) + ""}});
-        });
-        addLeftAction(10, (player, slot) -> {
-            player.closeInventory();
-            simpleHomes.getInputManager().addInput(player, new VaultSetHomeInput(simpleHomes));
-            messages.sendMessage(player, "admin.vault.setHome.enterAmount");
-        });
-        // Overwrite
-        addItem(12, () -> {
-            double amount = settings.getDouble("vault.overwriteHome", 0.0);
-            return Yaml.replace(settings.getItemStack("inventory.vault.items.overwriteHome"), new String[][] {{"%amount%", Math.round(amount) + ""}});
-        });
-        addLeftAction(12, (player, slot) -> {
-            player.closeInventory();
-            simpleHomes.getInputManager().addInput(player, new VaultOverwriteHomeInput(simpleHomes));
-            messages.sendMessage(player, "admin.vault.overwriteHome.enterAmount");
-        });
-        // DeleteHome
-        addItem(14, () -> {
-            double amount = settings.getDouble("vault.deleteHome", 0.0);
-            return Yaml.replace(settings.getItemStack("inventory.vault.items.deleteHome"), new String[][] {{"%amount%", Math.round(amount) + ""}});
-        });
-        addLeftAction(14, (player, slot) -> {
-            player.closeInventory();
-            simpleHomes.getInputManager().addInput(player, new VaultDeleteHomeInput(simpleHomes));
-            messages.sendMessage(player, "admin.vault.deleteHome.enterAmount");
-        });
+    private final SimpleHomes simpleHomes;
 
-        // Teleport
-        addItem(16, () -> {
-            double amount = settings.getDouble("vault.teleport", 0.0);
-            return Yaml.replace(settings.getItemStack("inventory.vault.items.teleport"), new String[][] {{"%amount%", Math.round(amount) + ""}});
-        });
-        addLeftAction(16, (player, slot) -> {
-            player.closeInventory();
-            simpleHomes.getInputManager().addInput(player, new VaultTeleportInput(simpleHomes));
-            messages.sendMessage(player, "admin.vault.teleport.enterAmount");
-        });
-        // Status
-        setUpdatable(28, true);
-        setUpdateInterval(28, 4);
-        addItem(28, () -> {
-            String status;
-            if (settings.getBoolean("vault.enable")) {
-                status = settings.getString("inventory.vault.status.enable");
-            } else {
-                status = settings.getString("inventory.vault.status.disable");
+    public VaultInventory(SimpleHomes simpleHomes, Player player) {
+        super(simpleHomes.getSettings(), "inventory.vault", "gui", player);
+        this.simpleHomes = simpleHomes;
+    }
+
+    @Override
+    public void openLastInventory() {
+        simpleHomes.getInventoryManager().openInventory(getPlayer(), new SimpleHomesInventory(simpleHomes, getPlayer()));
+    }
+
+    @Override
+    public String[][] getReplacements() {
+        String vaultStatus;
+        if (simpleHomes.getSettings().getBoolean("vault.enable")) {
+            vaultStatus = getYaml().getString(getPath() + ".texts.enabled");
+        } else {
+            vaultStatus = getYaml().getString(getPath() + ".texts.disabled");
+        }
+        return new String[][] {
+                {"%vault-status%", vaultStatus},
+                {"%set-home-cost%", Math.round(simpleHomes.getSettings().getDouble("vault.setHome", 0.0)) + ""},
+                {"%overwrite-home-cost%", Math.round(simpleHomes.getSettings().getDouble("vault.overwriteHome", 0.0)) + ""},
+                {"%delete-home-cost%", Math.round(simpleHomes.getSettings().getDouble("vault.deleteHome", 0.0)) + ""},
+                {"%teleport-home-cost%", Math.round(simpleHomes.getSettings().getDouble("vault.teleport", 0.0)) + ""}
+        };
+    }
+
+    @Override
+    public void prosesAction(String action, Player player) {
+        switch (action) {
+            case "[close]": {
+                player.closeInventory();
+                break;
             }
-            return Yaml.replace(settings.getItemStack("inventory.vault.items.status"), new String[][] {{"%status%", status}});
-        });
-        addLeftAction(28, (player, slot) -> {
-            settings.set("vault.enable", !settings.getBoolean("vault.enable"));
-            settings.saveFileConfiguration();
-        });
-        // Close
-        addItem(31, () -> settings.getItemStack("inventory.vault.items.close"));
-        addLeftAction(31, (player, slot) -> simpleHomes.getInventoryManager().openInventory(player, new SimpleHomesInventory(simpleHomes)));
+            case "[return]": {
+                simpleHomes.getInventoryManager().openInventory(player, new SimpleHomesInventory(simpleHomes, player));
+                break;
+            }
+            case "[toggle-vault-status]": {
+                simpleHomes.getSettings().set("vault.enable", !simpleHomes.getSettings().getBoolean("vault.enable"));
+                simpleHomes.getSettings().saveFileConfiguration();
+                break;
+            }
+            case "[change-set-home-cost]": {
+                player.closeInventory();
+                simpleHomes.getInputManager().addInput(player, new VaultSetHomeInput(simpleHomes));
+                simpleHomes.getMessages().sendMessage(player, "admin.vault.setHome.enterAmount");
+                break;
+            }
+            case "[change-overwrite-home-cost]": {
+                player.closeInventory();
+                simpleHomes.getInputManager().addInput(player, new VaultOverwriteHomeInput(simpleHomes));
+                simpleHomes.getMessages().sendMessage(player, "admin.vault.overwriteHome.enterAmount");
+                break;
+            }
+            case "[change-delete-home-cost]": {
+                player.closeInventory();
+                simpleHomes.getInputManager().addInput(player, new VaultDeleteHomeInput(simpleHomes));
+                simpleHomes.getMessages().sendMessage(player, "admin.vault.deleteHome.enterAmount");
+                break;
+            }
+            case "[change-teleport-home-cost]": {
+                player.closeInventory();
+                simpleHomes.getInputManager().addInput(player, new VaultTeleportInput(simpleHomes));
+                simpleHomes.getMessages().sendMessage(player, "admin.vault.teleport.enterAmount");
+                break;
+            }
+        }
     }
 
 }

@@ -53,29 +53,59 @@ homes:
   staff: 10 # simple.max.homes.staff
 inventory:
   deleteConfirm:
-    title: "Do you want to erase your home?"
+    title: "&8▪ &c&lDelete your home?"
+    rows: 3
     items:
-      panel:
+      gray-panel:
+        material: "GRAY_STAINED_GLASS_PANE"
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "0-1"
+          - "9"
+      orange-panel:
         material: "ORANGE_STAINED_GLASS_PANE"
-        name: "&7"
-      information:
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "17"
+          - "25-26"
+      home-information:
         material: "RED_BED"
-        name: "&6%name%"
+        name: "%home-display-name%"
+        slots:
+          - "13"
         lore:
-          - "&7"
-          - "&6WORLD &e%world%"
-          - "&6X &e%x%"
-          - "&6Y &e%y%"
-          - "&6Z &e%z%"
-          - "&6YAW  &e%yaw%"
-          - "&6PITCH &e%pitch%"
-          - "&7"
-      accept:
+          - "&6"
+          - '&6&l┏&c&lCords'
+          - '&6&l┣►&fWORLD &7► &e%home-world-name%'
+          - '&6&l┣►&fX &7► &e%home-world-x%'
+          - '&6&l┣►&fY &7► &e%home-world-y%'
+          - '&6&l┣►&fZ &7► &e%home-world-z%'
+          - '&6&l┣►&fYAW &7► &e%home-world-yaw%'
+          - '&6&l┣►&fPITCH &7► &e%home-world-pitch%'
+          - '&6'
+          - '&6&l┏&c&lInfo'
+          - '&6&l┣►&fType &7► &cPRIVATE &aPUBLIC'
+          - '&6&l┣►&fCost &7► &e$120.0'
+      accept-button:
         material: "LIME_WOOL"
-        name: "&aAccept"
-      cancel:
+        name: "&8▪ &a&lAccept &8▪"
+        lore:
+          - "&6"
+          - "&8▪ &aClick to delete!"
+        slots:
+          - "11"
+        left-click-actions:
+          - "[accept]"
+      cancel-button:
         material: "RED_WOOL"
-        name: "&cCancel"
+        name: "&8▪ &c&lCancel &8▪"
+        lore:
+          - "&6"
+          - "&8▪ &aClick to save!"
+        slots:
+          - "15"
+        left-click-actions:
+          - "[cancel]"
   homes:
     rows: 3
     title: "Homes Inventory"
@@ -92,18 +122,23 @@ inventory:
           - "&6Amount: %amount%"
       home:
         material: "CHEST"
-        name: "&e%name%"
+        name: "%display-name%"
         lore:
-          - "&7"
-          - "&6WORLD &e%world%"
-          - "&6X &e%x%"
-          - "&6Y &e%y%"
-          - "&6Z &e%z%"
-          - "&6YAW  &e%yaw%"
-          - "&6PITCH &e%pitch%"
-          - "&7"
-          - "&6Left Click &eTeleport to home"
-          - "&6Right Click &eDelete the home"
+          - '&6&l┏&c&lCords'
+          - '&6&l┣&fWORLD &7► &e%home-world-name%'
+          - '&6&l┣&fX &7► &e%home-world-x%'
+          - '&6&l┣&fY &7► &e%home-world-y%'
+          - '&6&l┣&fZ &7► &e%home-world-z%'
+          - '&6&l┣&fZ &7► &e%home-world-yaw%'
+          - '&6&l┣&fZ &7► &e%home-world-pitch%'
+          - '&6'
+          - '&6&l┏&c&lPublic'
+          - '&6&l┣&fPublic &7► &e%home-public%'
+          - '&6&l┣&fCost &7► &e%home-public-cost%'
+          - '&6'
+          - '&5Left Click to teleport'
+          - '&6Middle Click to edit'
+          - '&cRight Click to delete'
       prevPage:
         material: "ARROW"
         name: "&cPrev Page"
@@ -114,104 +149,194 @@ inventory:
         material: "BARRIER"
         name: "&cClose Menu"
   admin:
-    title: "SimpleHomes Management"
+    title: "&8▪ &c&lPlugin management"
+    rows: 5
     items:
-      panel:
+      gray-panel:
+        material: "GRAY_STAINED_GLASS_PANE"
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "0-1"
+          - "9"
+        click-actions:
+          - '[sound] ITEM_PICKUP'
+      orange-panel:
         material: "ORANGE_STAINED_GLASS_PANE"
-      world:
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "35-36"
+          - "43-44"
+        click-actions:
+          - '[sound] ITEM_PICKUP'
+      world-settings-menu:
         material: PAPER
-        name: "&3World Settings"
+        name: "&8▪ &c&lWorld settings menu &8▪"
         lore:
-          - ""
-          - "&7Left Click to open World Settings"
-      vault:
+          - "&6"
+          - "&8▪ &aLeft click to open menu!"
+        slots:
+          - "20"
+        left-click-actions:
+          - "[world-settings]"
+      vault-settings-menu:
         material: PAPER
-        name: "&3Vault Settings"
+        name: "&8▪ &c&lVault settings menu &8▪"
         lore:
-          - ""
-          - "&7Left Click to open Vault Settings"
+          - "&6"
+          - "&8▪ &aLeft click to open menu!"
+        slots:
+          - "22"
+        left-click-actions:
+          - "[vault-settings]"
       reload:
         material: REDSTONE_BLOCK
-        name: "&3Reload plugin"
+        name: "&8▪ &c&lReload plugin &8"
         lore:
           - ""
-          - "&7Left Click to reload"
-      close:
-        material: BARRIER
-        name: "&cClose"
+          - "&8▪ &aLeft click to reload!"
+        slots:
+          - "24"
+        left-click-actions:
+          - "[reload]"
+      close-button:
+        material: "BARRIER"
+        name: "&8▪ &c&lClose &8▪"
+        lore:
+          - "&6"
+          - "&8▪ &aLeft click to close!"
+        slots:
+          - "8"
+        left-click-actions:
+          - "[close]"
+          - "[sound] NOTE_PLING"
   vault:
-    title: "Vault Menu"
+    title: "&8▪ &c&lVault settings menu"
+    rows: 5
+    update-inverval: 4
     status:
-      enable: "&aEnable"
-      disable: "&cDisable"
+      enabled: "&aENABLED"
+      disabled: "&cDISABLED"
     items:
-      panel:
+      gray-panel:
+        material: "GRAY_STAINED_GLASS_PANE"
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "0-1"
+          - "9"
+      orange-panel:
         material: "ORANGE_STAINED_GLASS_PANE"
-      status:
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "35"
+          - "43-44"
+      vault-status:
+        update: true
         material: CHEST
-        name: "&3Enable Vault"
+        name: "&8▪ &c&lVault status &8▪"
         lore:
           - ""
-          - "&6Status&e: %status%"
+          - "&6Status&e: %vault-status%"
           - ""
-          - "&7Left Click to change"
-      setHome:
+          - "&8▪ &aLeft click to toggle!"
+        slots:
+          - "11"
+        left-click-actions:
+          - "[toggle-vault-status]"
+      set-home-cost:
         material: PAPER
-        name: "&3Set Home"
+        name: "&8▪ &c&lSet home cost &8▪"
         lore:
           - ""
-          - "&6Money&e: %amount%"
+          - "&6Cost&e: %set-home-cost%"
           - ""
-          - "&7Left Click to change"
-      overwriteHome:
+          - "&8▪ &aLeft click to change!"
+        slots:
+          - "30"
+        left-click-actions:
+          - "[change-set-home-cost]"
+      overwrite-cost:
         material: PAPER
-        name: "&3Overwrite Home"
+        name: "&8▪ &c&lOverwrite home cost &8▪"
         lore:
           - ""
-          - "&6Money&e: %amount%"
+          - "&6Cost&e: %overwrite-home-cost%"
           - ""
-          - "&7Left Click to change"
-      deleteHome:
+          - "&8▪ &aLeft click to change!"
+        slots:
+          - "31"
+        left-click-actions:
+          - "[change-overwrite-home-cost]"
+      delete-home-refund:
         material: PAPER
-        name: "&3Delete Home"
+        name: "&8▪ &c&lDelete home refund &8▪"
         lore:
           - ""
-          - "&6Money&e: %amount%"
+          - "&6Amount&e: %delete-home-cost%"
           - ""
-          - "&fThis represents a refund"
-          - "&ffor removing a home"
-          - "&fThe established amount"
-          - "&fwill be added to your balance"
-          - ""
-          - "&7Left Click to change"
-      teleport:
+          - "&8▪ &aLeft click to change!"
+        slots:
+          - "32"
+        left-click-actions:
+          - "[change-delete-home-cost]"
+      teleport-cost:
         material: PAPER
-        name: "&3Teleport"
+        name: "&8▪ &c&lTeleport cost &8▪"
         lore:
           - ""
-          - "&6Money&e: %amount%"
+          - "&6Money&e: %teleport-home-cost%"
           - ""
-          - "&7Left Click to change"
-      close:
-        material: BARRIER
-        name: "&cClose"
+          - "&8▪ &aLeft click to change!"
+        slots:
+          - "33"
+        left-click-actions:
+          - "[change-teleport-home-cost]"
+      return-button:
+        material: "ARROW"
+        name: "&8▪ &c&lReturn &8▪"
+        lore:
+          - "&6"
+          - "&8▪ &aLeft click to return!"
+        slots:
+          - "36"
+        left-click-actions:
+          - "[return]"
+      close-button:
+        material: "BARRIER"
+        name: "&8▪ &c&lClose &8▪"
+        lore:
+          - "&6"
+          - "&8▪ &aLeft click to close!"
+        slots:
+          - "8"
+        left-click-actions:
+          - "[close]"
+
+
   world:
-    title: "Disabled World Menu"
-    status:
-      enable: "&aEnabled"
-      disable: "&cDisabled"
+    title: "&8▪ &c&lDisabled world menu"
     items:
-      panel:
+      gray-panel:
+        material: "GRAY_STAINED_GLASS_PANE"
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "0-1"
+          - "9"
+      orange-panel:
         material: "ORANGE_STAINED_GLASS_PANE"
-      setHome:
-        material: BED
-        name: "&3SetHome"
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "35"
+          - "43-44"
+
+      set-home-settings:
+        material: CHEST
+        name: "&8▪ &c&lSet home settings &8▪"
         lore:
           - ""
-          - "&6Enable&e: %status%"
+          - "&6&lEnable &7► %set-home-status%"
           - ""
-          - "&7Left Click to change status"
-          - "&7Right Click to manage worlds"
+          - "&8▪ &aLeft click to toggle"
+          - "&8▪ &aRight click to manage worlds"
       teleportFrom:
         material: CHEST
         name: "&3Teleport from"
@@ -230,12 +355,29 @@ inventory:
           - ""
           - "&7Left Click to change status"
           - "&7Right Click to manage worlds"
-      close:
-        material: BARRIER
-        name: "&cClose"
+
+      return-button:
+        material: "ARROW"
+        name: "&8▪ &c&lReturn &8▪"
         lore:
-          - ""
-          - "&7Click to close"
+          - "&6"
+          - "&8▪ &aLeft click to return!"
+        slots:
+          - "36"
+        left-click-actions:
+          - "[return]"
+      close-button:
+        material: "BARRIER"
+        name: "&8▪ &c&lClose &8▪"
+        lore:
+          - "&6"
+          - "&8▪ &aLeft click to close!"
+        slots:
+          - "8"
+        left-click-actions:
+          - "[close]"
+
+
   worldSetHome:
     title: "Disabled Set Home Worlds"
     rows: 1
@@ -333,3 +475,64 @@ inventory:
       close:
         material: BARRIER
         name: "&cClose"
+
+
+  homeEditor:
+    title: "&8▪ &c&lHome editor"
+    rows: 4
+    update-inverval: 4
+    items:
+      gray-panel:
+        material: "GRAY_STAINED_GLASS_PANE"
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "0-1"
+          - "9"
+      orange-panel:
+        material: "ORANGE_STAINED_GLASS_PANE"
+        name: "&6&lSimple&f&lHomes"
+        slots:
+          - "26"
+          - "34-35"
+      home-information:
+        material: "CHEST"
+        name: "%home-display-name%"
+        lore:
+          - "&6"
+          - '&6&l┏&c&lCords'
+          - '&6&l┣►&fWORLD &7► &e%home-world-name%'
+          - '&6&l┣►&fX &7► &e%home-world-x%'
+          - '&6&l┣►&fY &7► &e%home-world-y%'
+          - '&6&l┣►&fZ &7► &e%home-world-z%'
+          - '&6&l┣►&fYAW &7► &e%home-world-yaw%'
+          - '&6&l┣►&fPITCH &7► &e%home-world-pitch%'
+          - '&6'
+          - '&6&l┏&c&lInfo'
+          - '&6&l┣►&fType &7► &cPRIVATE &aPUBLIC'
+          - '&6&l┣►&fCost &7► &e$120.0'
+      return-button:
+        material: "ARROW"
+        name: "&8▪ &c&lReturn &8▪"
+        lore:
+          - "&6"
+          - "&8▪ &aLeft click to return!"
+        slots:
+          - "27"
+        left-click-actions:
+          - "[return]"
+      close-button:
+        material: "BARRIER"
+        name: "&8▪ &c&lClose &8▪"
+        lore:
+          - "&6"
+          - "&8▪ &aLeft click to close!"
+        slots:
+          - "8"
+        # left-click-actions
+        # left-shift-click-actions
+        # middle-click-actions
+        # right-click-actions
+        # right-shift-click-actions
+        # click-actions
+        left-click-actions:
+          - "[close]"

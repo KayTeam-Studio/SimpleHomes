@@ -17,43 +17,46 @@
 
 package org.kayteam.simplehomes.inventories;
 
-import org.kayteam.api.inventory.InventoryBuilder;
+import org.bukkit.entity.Player;
 import org.kayteam.api.yaml.Yaml;
 import org.kayteam.simplehomes.SimpleHomes;
 import org.kayteam.simplehomes.home.Home;
 import org.kayteam.simplehomes.home.Homes;
 import org.kayteam.simplehomes.home.HomesManager;
 import net.milkbowl.vault.economy.Economy;
+import org.kayteam.simplehomes.util.inventory.SimpleInventoryBuilder;
 
-public class DeleteHomeConfirmInventory extends InventoryBuilder {
+public class DeleteHomeConfirmInventory extends SimpleInventoryBuilder {
 
-    public DeleteHomeConfirmInventory(SimpleHomes simpleHomes, Home home, String from) {
-        super(simpleHomes.getSettings().getString("inventory.deleteConfirm.title"), 3);
-        Yaml settings = simpleHomes.getSettings();
-        fillItem(() -> settings.getItemStack("inventory.deleteConfirm.items.panel"));
-        // Information
-        addItem(13, () -> Yaml.replace(settings.getItemStack("inventory.deleteConfirm.items.information"), new String[][] {
-                {"%name%", home.getName()},
-                {"%world%", home.getWorld()},
-                {"%x%", Math.round(home.getX()) + ""},
-                {"%y%", Math.round(home.getY()) + ""},
-                {"%z%", Math.round(home.getZ()) + ""},
-                {"%yaw%", Math.round(home.getYaw()) + ""},
-                {"%pitch%", Math.round(home.getPitch()) + ""}
-        }));
-        // Cancel
-        addItem(11, () -> settings.getItemStack("inventory.deleteConfirm.items.cancel"));
-        addLeftAction(11, (player, slot) -> {
-            player.closeInventory();
-            if (from.equals("gui")) {
-                HomesManager homesManager = simpleHomes.getHomesManager();
-                Homes homes = homesManager.getHomes(home.getOwner());
-                simpleHomes.getInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes, 1));
-            }
-        });
-        // Accept
-        addItem(15, () -> settings.getItemStack("inventory.deleteConfirm.items.accept"));
-        addLeftAction(15, (player, slot) -> {
+    private final SimpleHomes simpleHomes;
+    private final Home home;
+
+    public DeleteHomeConfirmInventory(SimpleHomes simpleHomes, Home home, String from, Player player) {
+        super(simpleHomes.getSettings(), "inventory.deleteConfirm", from, player);
+        this.simpleHomes = simpleHomes;
+        this.home = home;
+    }
+
+    @Override
+    public void openLastInventory() { }
+
+    @Override
+    public String[][] getReplacements() {
+        return new String[][]{
+                {"%home-name%", home.getName()},
+                {"%home-display-name%", home.getDisplayName()},
+                {"%home-world-name%", home.getWorld()},
+                {"%home-world-x%", Math.round(home.getX()) + ""},
+                {"%home-world-y%", Math.round(home.getY()) + ""},
+                {"%home-world-z%", Math.round(home.getZ()) + ""},
+                {"%home-world-yaw%", Math.round(home.getYaw()) + ""},
+                {"%home-world-pitch%", Math.round(home.getPitch()) + ""}
+        };
+    }
+
+    @Override
+    public void prosesAction(String action, Player player) {
+        if (action.startsWith("[accept]")) {
             Yaml messages = simpleHomes.getMessages();
             String name = home.getName();
             String owner = home.getOwner();
@@ -89,7 +92,7 @@ public class DeleteHomeConfirmInventory extends InventoryBuilder {
             homesManager.saveHomes(owner);
             player.closeInventory();
             if (homes.getHomes().size() > 0) {
-                if (from.equals("gui")) {
+                if (getFrom().equals("gui")) {
                     simpleHomes.getInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes, 1));
                 }
             } else {
@@ -101,7 +104,14 @@ public class DeleteHomeConfirmInventory extends InventoryBuilder {
                     });
                 }
             }
-        });
+        } else if (action.startsWith("[cancel]")) {
+            player.closeInventory();
+            if (getFrom().equals("gui")) {
+                HomesManager homesManager = simpleHomes.getHomesManager();
+                Homes homes = homesManager.getHomes(home.getOwner());
+                simpleHomes.getInventoryManager().openInventory(player, new HomesInventory(simpleHomes, homes, 1));
+            }
+        }
     }
 
 }

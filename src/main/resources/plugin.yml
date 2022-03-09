@@ -4,7 +4,6 @@ version: '${project.version}'
 author: SirOswaldo
 website: https://www.kayteam.org
 api-version: 1.13
-depend: [KayTeamAPI]
 softdepend: [ PlaceholderAPI, Vault ]
 commands:
   SetHome:

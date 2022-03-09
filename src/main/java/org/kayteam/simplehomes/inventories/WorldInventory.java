@@ -17,71 +17,86 @@
 
 package org.kayteam.simplehomes.inventories;
 
-import org.kayteam.api.inventory.InventoryBuilder;
-import org.kayteam.api.yaml.Yaml;
+import org.bukkit.entity.Player;
 import org.kayteam.simplehomes.SimpleHomes;
+import org.kayteam.simplehomes.util.inventory.SimpleInventoryBuilder;
 
-public class WorldInventory extends InventoryBuilder {
+public class WorldInventory extends SimpleInventoryBuilder {
 
-    public WorldInventory(SimpleHomes simpleHomes) {
-        super(simpleHomes.getSettings().getString("inventory.world.title"), 5);
-        Yaml settings = simpleHomes.getSettings();
-        // Panel
-        fillItem(() -> settings.getItemStack("inventory.world.items.panel"));
-        // SetHome
-        setUpdatable(11, true);
-        setUpdateInterval(11, 4);
-        addItem(11, () -> {
-            String status;
-            if (settings.getBoolean("world.disableSetHome.enable")) {
-                status = settings.getString("inventory.world.status.enable", "&aEnabled");
-            } else {
-                status = settings.getString("inventory.world.status.disable", "&cDisabled");
+    private final SimpleHomes simpleHomes;
+
+    public WorldInventory(SimpleHomes simpleHomes, Player player) {
+        super(simpleHomes.getSettings(), "inventory.world", "gui", player);
+        this.simpleHomes = simpleHomes;
+    }
+
+    @Override
+    public void openLastInventory() {
+        simpleHomes.getInventoryManager().openInventory(getPlayer(), new SimpleHomesInventory(simpleHomes, getPlayer()));
+    }
+
+    @Override
+    public String[][] getReplacements() {
+        String enabled = getYaml().getString(getPath() + ".texts.enabled", "&a&lEnabled");
+        String disabled = getYaml().getString(getPath() + ".texts.disabled", "&c&lDisabled");
+        String setHomeStatus;
+        if (getYaml().getBoolean("world.disableSetHome.enable")) {
+            setHomeStatus = enabled;
+        } else {
+            setHomeStatus = disabled;
+        }
+
+        String teleportFromStatus;
+        if (getYaml().getBoolean("world.disableTeleportFrom.enable")) {
+            teleportFromStatus = enabled;
+        } else {
+            teleportFromStatus = disabled;
+        }
+
+        String teleportToStatus;
+        if (getYaml().getBoolean("world.disableTeleportTo.enable")) {
+            teleportToStatus = enabled;
+        } else {
+            teleportToStatus = disabled;
+        }
+        return new String[][] {
+                {"%set-home-status%", setHomeStatus},
+                {"%teleport-from-status%", teleportFromStatus},
+                {"%teleport-to-status%", teleportToStatus}
+        };
+    }
+
+    @Override
+    public void prosesAction(String action, Player player) {
+        switch (action) {
+            case "[toggle-set-home]": {
+                getYaml().set("world.disableSetHome.enable", !getYaml().getBoolean("world.disableSetHome.enable", false));
+                getYaml().saveFileConfiguration();
+                break;
             }
-            return Yaml.replace(settings.getItemStack("inventory.world.items.setHome"), new String[][]{{"%status%", status},});
-        });
-        addLeftAction(11, (player, slot) -> {
-            settings.set("world.disableSetHome.enable", !settings.getBoolean("world.disableSetHome.enable", false));
-            settings.saveFileConfiguration();
-        });
-        addRightAction(11, (player, slot) -> simpleHomes.getInventoryManager().openInventory(player, new WorldSetHomeInventory(simpleHomes, 1)));
-        // TeleportFrom
-        setUpdatable(13, true);
-        setUpdateInterval(13, 4);
-        addItem(13, () -> {
-            String status;
-            if (settings.getBoolean("world.disableTeleportFrom.enable")) {
-                status = settings.getString("inventory.world.status.enable", "&aEnabled");
-            } else {
-                status = settings.getString("inventory.world.status.disable", "&cDisabled");
+            case "[manage-set-home-worlds]": {
+                simpleHomes.getInventoryManager().openInventory(player, new WorldSetHomeInventory(simpleHomes, 1));
+                break;
             }
-            return Yaml.replace(settings.getItemStack("inventory.world.items.teleportFrom"), new String[][]{{"%status%", status}});
-        });
-        addLeftAction(13, (player, slot) -> {
-            settings.set("world.disableTeleportFrom.enable", !settings.getBoolean("world.disableTeleportFrom.enable", false));
-            settings.saveFileConfiguration();
-        });
-        addRightAction(13, (player, slot) -> simpleHomes.getInventoryManager().openInventory(player, new WorldTeleportFrom(simpleHomes, 1)));
-        // TeleportTo
-        setUpdatable(15, true);
-        setUpdateInterval(15, 4);
-        addItem(15, () -> {
-            String status;
-            if (settings.getBoolean("world.disableTeleportTo.enable")) {
-                status = settings.getString("inventory.world.status.enable", "&aEnabled");
-            } else {
-                status = settings.getString("inventory.world.status.disable", "&cDisabled");
+            case "[toggle-teleport-from]": {
+                getYaml().set("world.disableTeleportFrom.enable", !getYaml().getBoolean("world.disableTeleportFrom.enable", false));
+                getYaml().saveFileConfiguration();
+                break;
             }
-            return Yaml.replace(settings.getItemStack("inventory.world.items.teleportTo"), new String[][]{{"%status%", status}});
-        });
-        addLeftAction(15, (player, slot) -> {
-            settings.set("world.disableTeleportTo.enable", !settings.getBoolean("world.disableTeleportTo.enable", false));
-            settings.saveFileConfiguration();
-        });
-        addRightAction(15, (player, slot) -> simpleHomes.getInventoryManager().openInventory(player, new WorldTeleportTo(simpleHomes, 1)));
-        // Close
-        addItem(31, () -> settings.getItemStack("inventory.world.items.close"));
-        addLeftAction(31, (player, slot) -> simpleHomes.getInventoryManager().openInventory(player, new SimpleHomesInventory(simpleHomes)));
+            case "[manage-teleport-from-worlds]": {
+                simpleHomes.getInventoryManager().openInventory(player, new WorldTeleportFrom(simpleHomes, 1));
+                break;
+            }
+            case "[toggle-teleport-to]": {
+                getYaml().set("world.disableTeleportTo.enable", !getYaml().getBoolean("world.disableTeleportTo.enable", false));
+                getYaml().saveFileConfiguration();
+                break;
+            }
+            case "[manage-teleport-to-worlds]": {
+                simpleHomes.getInventoryManager().openInventory(player, new WorldTeleportTo(simpleHomes, 1));
+                break;
+            }
+        }
     }
 
 }
